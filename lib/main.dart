@@ -16,6 +16,7 @@ class BuilderPlusApp extends StatefulWidget {
 class _BuilderPlusAppState extends State<BuilderPlusApp> {
   @override
   Widget build(BuildContext context) {
+    print("Testing");
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoginScreen(),
