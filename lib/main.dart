@@ -1,3 +1,4 @@
+import 'package:builder_plus/Common/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'Screens/SignIn/main.dart';
@@ -16,9 +17,12 @@ class BuilderPlusApp extends StatefulWidget {
 class _BuilderPlusAppState extends State<BuilderPlusApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home:const LoginScreen(),
+      theme: ThemeData(
+        primaryColor: primaryColor
+      ),
     );
   }
 }
