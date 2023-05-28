@@ -1,6 +1,5 @@
 import 'package:builder_plus/Common/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,8 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0.0,
         backgroundColor: primaryColor,
         leading: IconButton(
-          iconSize: 24,
           onPressed: () {},
+          iconSize: 24,
           icon: const Icon(Icons.settings),
         ),
         centerTitle: true,
@@ -254,52 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          color: primaryColor,
-          padding: const EdgeInsets.all(8.0),
-          height: 70,
-          child: Row(
-            children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.home,
-                    color: Colors.white,
-                    size: 30,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.folder,
-                    color: Colors.white,
-                    size: 30,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 30,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    FontAwesome5Regular.file,
-                    color: Colors.white,
-                    size: 30,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.home,
-                    color: Colors.white,
-                    size: 30,
-                  )),
-            ],
-          ),
-        ),
-      ),
+   
     );
   }
 }

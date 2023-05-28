@@ -1,7 +1,7 @@
 import 'package:builder_plus/Common/constant.dart';
 import 'package:builder_plus/Component/Form/main.dart';
+import 'package:builder_plus/Component/bottom/main.dart';
 import 'package:builder_plus/Component/button/main.dart';
-import 'package:builder_plus/Screens/Home/main.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const HomeScreen()));
+                                builder: (context) => const BottomNav()));
                       },
                       buttonText: "LOGIN",
                     ),
