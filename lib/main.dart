@@ -21,6 +21,9 @@ class _BuilderPlusAppState extends State<BuilderPlusApp> {
       debugShowCheckedModeBanner: false,
       home:const LoginScreen(),
       theme: ThemeData(
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: headerColor,
+        ),
         primaryColor: primaryColor
       ),
     );
