@@ -3,7 +3,8 @@ import '/Common/constant.dart';
 
 class CommonFormField extends StatelessWidget {
   const CommonFormField(
-      {this.labelText = "",
+      {this.floatingLabelBehavior,
+      this.labelText = "",
       this.initialText,
       this.currentFocusNode,
       this.textController,
@@ -21,16 +22,19 @@ class CommonFormField extends StatelessWidget {
       this.maxLength = 50,
       this.maxLines = 5,
       this.textAlign = TextAlign.start,
+      this.readOnly = false,
+      this.onTap,
       super.key});
   final String? labelText;
   final String? hintText;
   final String? initialText;
   final IconData? prefixIcon;
-  final IconData? suffixIcon;
+  final Widget? suffixIcon;
   final VoidCallback? suffixIconEvent;
   final Function? onError;
   final Function? onSave;
   final Function? onChanged;
+  final Function? onTap;
   final TextEditingController? textController;
   final FocusNode? currentFocusNode;
   final bool obscureText;
@@ -40,6 +44,8 @@ class CommonFormField extends StatelessWidget {
   final int? maxLength;
   final int? maxLines;
   final TextAlign? textAlign;
+  final FloatingLabelBehavior? floatingLabelBehavior;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -52,35 +58,47 @@ class CommonFormField extends StatelessWidget {
           width: width ?? MediaQuery.of(context).size.width,
           child: TextFormField(
             textAlign: textAlign!,
+            onTap: () {
+              if (onTap != null) onTap!();
+            },
+            readOnly: readOnly,
             style: const TextStyle(
                 color: Colors.black,
                 fontSize: fontSize16,
                 fontWeight: FontWeight.w400),
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.zero,
-              labelText: hintText,
-              labelStyle: LightTheme.header2,
+              suffixIcon: suffixIcon,
+              contentPadding: const EdgeInsets.all(10.0),
+              labelText: labelText,
+              labelStyle: LightTheme.subHeader7,
+              floatingLabelBehavior: floatingLabelBehavior,
               counter: const SizedBox.shrink(),
-              errorBorder: const UnderlineInputBorder(
+              errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
                   color: Colors.redAccent,
                 ),
               ),
-              border: const UnderlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
-                  color: Colors.deepPurpleAccent,
+                  color: textFieldBorderColor,
                 ),
               ),
-              focusedBorder: const UnderlineInputBorder(
+              border: const OutlineInputBorder(
                 borderSide: BorderSide(
                   width: 1,
-                  color: Colors.deepPurpleAccent,
+                  color: textFieldBorderColor,
+                ),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: textFieldBorderColor,
                 ),
               ),
             ),
-            cursorColor: Colors.deepPurpleAccent,
+            cursorColor: Colors.black,
             obscureText: obscureText,
             initialValue: initialText,
             controller: textController,

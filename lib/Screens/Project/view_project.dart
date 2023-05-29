@@ -18,7 +18,9 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
           elevation: 0.0,
           backgroundColor: primaryColor,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             iconSize: 24,
             icon: const Icon(Icons.arrow_back_ios),
           ),
@@ -30,7 +32,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
           actions: [
             IconButton(
               onPressed: () {},
-              iconSize: 24,
+              iconSize: 28,
               icon: const Icon(Icons.create_new_folder),
             ),
           ],
@@ -42,9 +44,8 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
               delegate: SliverChildListDelegate(
                 [
                   Card(
-                      shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)
-                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
                     elevation: 5.0,
                     margin: const EdgeInsets.all(10),
                     child: Padding(
@@ -96,6 +97,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                       child: CommonButton(
                                     radius: 10,
                                     height: 40,
+                                    fontSize: fontSize12,
                                     gapWidth: 0,
                                     buttonText: "Download Report",
                                   ))
@@ -179,8 +181,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                   ),
                   Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)
-                    ),
+                        borderRadius: BorderRadius.circular(20.0)),
                     elevation: 5.0,
                     margin: const EdgeInsets.all(10),
                     child: Padding(
@@ -196,11 +197,11 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                   style: LightTheme.subHeader4,
                                 ),
                                 Text(
-                                  "See all",
+                                  "View all",
                                   style: LightTheme.header2,
                                 ),
                               ]),
-                                const SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
@@ -215,73 +216,71 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                       ),
                                     )),
                           ),
-                            const SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           const Text(
                             "Friday",
                             style: LightTheme.header2,
                           ),
-                             const SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                           const Text(
+                          const Text(
                             "29-05-2023",
                             style: LightTheme.subHeader4,
                           ),
                           ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: ((context, index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.all(20),
-                                  height: 55,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      IntrinsicWidth(
-                                        child: Row(
-                                          children: [
-                                            const CircleAvatar(
-                                              backgroundColor: Colors.white,
-                                              backgroundImage: NetworkImage(
-                                                "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: const [
-                                                Text("Cement"),
-                                                Text("17 Jun 2023"),
-                                                Text("5 quantity * 460 Rs"),
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: 5,
+                              itemBuilder: ((context, index) {
+                                return Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.all(20),
+                                      height: 55,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          IntrinsicWidth(
+                                            child: Row(
+                                              children: [
+                                                const CircleAvatar(
+                                                  backgroundColor: Colors.white,
+                                                  backgroundImage: NetworkImage(
+                                                    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: const [
+                                                    Text("Cement"),
+                                                    Text("17 Jun 2023"),
+                                                    Text("5 quantity * 460 Rs"),
+                                                  ],
+                                                )
                                               ],
-                                            )
-                                          ],
-                                        ),
+                                            ),
+                                          ),
+                                          const Align(
+                                              alignment: Alignment.centerRight,
+                                              child: IntrinsicWidth(
+                                                  child: Text("INR -1240")))
+                                        ],
                                       ),
-                                      const Align(
-                                          alignment: Alignment.centerRight,
-                                          child: IntrinsicWidth(
-                                              child: Text("INR -1240")))
-                                    ],
-                                  ),
-                                ),
-                            
-                              ],
-                            );
-                          })),
-                    
+                                    ),
+                                  ],
+                                );
+                              })),
                         ],
                       ),
                     ),
