@@ -3,7 +3,6 @@ import 'package:builder_plus/Screens/Project/main.dart';
 import 'package:builder_plus/Screens/Quotation/main.dart';
 import 'package:builder_plus/Screens/Report/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import '../../Common/constant.dart';
 
@@ -56,32 +55,37 @@ class _BottomNavState extends State<BottomNav> {
               items: const [
                 BottomNavigationBarItem(
                     label: "",
-                    icon: Icon(
-                      Icons.home,
-                      color: Colors.white,
-                      size: 30,
+                    icon: Image(
+                      image: AssetImage("assets/icons/home.png"),
+                      height: 40,
+                      width: 40,
                     )),
                 BottomNavigationBarItem(
                     label: "",
-                    icon: Icon(
-                      Icons.folder,
-                      color: Colors.white,
-                      size: 30,
-                    )),
-              
-                BottomNavigationBarItem(
-                    label: "",
-                    icon: Icon(
-                      FontAwesome5Regular.file,
-                      color: Colors.white,
-                      size: 30,
+                    icon: Padding(
+                      padding: EdgeInsets.only(right: 50.0),
+                      child: Image(
+                        image: AssetImage("assets/icons/project.png"),
+                        height: 30,
+                        width: 30,
+                      ),
                     )),
                 BottomNavigationBarItem(
                     label: "",
-                    icon: Icon(
-                      FontAwesome.line_chart,
-                      color: Colors.white,
-                      size: 30,
+                    icon: Padding(
+                      padding: EdgeInsets.only(left: 50.0),
+                      child: Image(
+                        image: AssetImage("assets/icons/file-edit.png"),
+                        height: 30,
+                        width: 30,
+                      ),
+                    )),
+                BottomNavigationBarItem(
+                    label: "",
+                    icon: Image(
+                      image: AssetImage("assets/icons/chart.png"),
+                      height: 40,
+                      width: 40,
                     )),
               ],
             ),
