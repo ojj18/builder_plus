@@ -12,15 +12,15 @@ class LightTheme {
     fontWeight: FontWeight.w600,
   );
   static const TextStyle header2 = TextStyle(
-    fontSize: fontSize16,
-    color: Colors.black45,
-    fontWeight: FontWeight.w400,
-  );
+      fontSize: fontSize16,
+      color: Colors.black45,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Poppins-Bold');
   static const TextStyle header3 = TextStyle(
-    fontSize: fontSize16,
-    color: Colors.black,
-    fontWeight: FontWeight.w400,
-  );
+      fontSize: fontSize14,
+      color: Colors.black,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Poppins-Regular');
   static const TextStyle subHeader = TextStyle(
     fontSize: fontSize20,
     color: Colors.white,
@@ -36,23 +36,48 @@ class LightTheme {
     color: Colors.white,
     fontWeight: FontWeight.w400,
   );
-    static const TextStyle subHeader3 = TextStyle(
-    fontSize: fontSize14,
+  static const TextStyle subHeader3 = TextStyle(
+    fontSize: fontSize12,
     color: secondaryColor,
     fontWeight: FontWeight.w400,
   );
-   static const TextStyle subHeader4 = TextStyle(
+  static const TextStyle subHeader4 = TextStyle(
     fontSize: fontSize16,
-     color: Colors.black,
+    color: Colors.black,
     fontWeight: FontWeight.w400,
   );
+  static const TextStyle subHeader5 = TextStyle(
+      fontSize: fontSize16,
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Poppins-Bold');
+  static const TextStyle subHeader6 = TextStyle(
+      fontSize: fontSize14,
+      color: Colors.black,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Inter');
+   
+  static const TextStyle subHeader7 = TextStyle(
+      fontSize: fontSize16,
+      color: textFieldLabelTextColor,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Poppins-Regular');
+           static const TextStyle subHeader8= TextStyle(
+      fontSize: fontSize18,
+      color: Colors.black,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Inter');
 }
 
 // Color
 const Color primaryColor = Color(0Xff3B9B67);
 const Color headerColor = Color.fromRGBO(71, 78, 104, 1);
 const Color buttonColor = Color(0xFF00843D);
-const Color secondaryColor =Color(0XFFFF4F4F);
+const Color secondaryColor = Color(0XFFFF4F4F);
+const Color cardBackgroundColor = Color(0xffFFFFFF);
+const Color backgroundColor = Color(0xffF5F5F5);
+const Color textFieldBorderColor = Color(0xff000000);
+const Color textFieldLabelTextColor = Color(0xff707070);
 
 // Font size
 const double fontSize10 = 10;
