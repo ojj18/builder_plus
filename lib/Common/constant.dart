@@ -36,11 +36,23 @@ class LightTheme {
     color: Colors.white,
     fontWeight: FontWeight.w400,
   );
+    static const TextStyle subHeader3 = TextStyle(
+    fontSize: fontSize14,
+    color: secondaryColor,
+    fontWeight: FontWeight.w400,
+  );
+   static const TextStyle subHeader4 = TextStyle(
+    fontSize: fontSize16,
+     color: Colors.black,
+    fontWeight: FontWeight.w400,
+  );
 }
 
 // Color
-const Color primaryColor = Color.fromRGBO(83, 145, 101, 1);
+const Color primaryColor = Color(0Xff3B9B67);
 const Color headerColor = Color.fromRGBO(71, 78, 104, 1);
+const Color buttonColor = Color(0xFF00843D);
+const Color secondaryColor =Color(0XFFFF4F4F);
 
 // Font size
 const double fontSize10 = 10;

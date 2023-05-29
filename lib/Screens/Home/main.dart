@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: primaryColor,
         leading: IconButton(
           onPressed: () {},
-          iconSize: 24,
+          iconSize: 30,
           icon: const Icon(Icons.settings),
         ),
         centerTitle: true,
@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Expanded(
+                                      IntrinsicWidth(
                                         child: Row(
                                           children: [
                                             const CircleAvatar(
@@ -225,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       const Align(
                                           alignment: Alignment.centerRight,
-                                          child: Expanded(
+                                          child: IntrinsicWidth(
                                               child: Text("INR -1240")))
                                     ],
                                   ),

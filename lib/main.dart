@@ -17,15 +17,14 @@ class BuilderPlusApp extends StatefulWidget {
 class _BuilderPlusAppState extends State<BuilderPlusApp> {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:const LoginScreen(),
+      home: const LoginScreen(),
       theme: ThemeData(
-                colorScheme: ColorScheme.fromSwatch().copyWith(
-          secondary: headerColor,
-        ),
-        primaryColor: primaryColor
-      ),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: headerColor,
+          ),
+          primaryColor: primaryColor),
     );
   }
 }
