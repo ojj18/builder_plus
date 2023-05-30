@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:builder_plus/Screens/Quotation/create_quotation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
@@ -13,6 +16,8 @@ class QuotationListScreen extends StatefulWidget {
 class _QuotationListScreenState extends State<QuotationListScreen> {
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -29,11 +34,145 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CreateQuotationScreen()),
+              );
+            },
             iconSize: 24,
-            icon: const Icon(FontAwesome5Solid.file_medical),
+            icon: Image(
+              image: AssetImage("assets/icons/file-add.png"),
+              height: 25,
+              width: 24,
+            ),
           ),
         ],
+      ),
+      backgroundColor: backgroundColor,
+      body: InkWell(
+        onTap: () {
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => ProjectViewScreen()),
+          // );
+        },
+        child: Container(
+          width: width,
+          height: height * 0.25,
+          padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 4.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            color: cardBackgroundColor,
+            elevation: 10.0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('RVKS - Quotation', style: LightTheme.subHeader5),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: Image(
+                              image: AssetImage("assets/icons/visible.png"),
+                              height: 18,
+                              width: 25,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15.0,
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: Image(
+                              image: AssetImage("assets/icons/edit.png"),
+                              height: 18,
+                              width: 18,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  subtitle: Text('12-05-2023', style: LightTheme.subHeader6),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text('Total Area: 5222Sq.ft',
+                        style: LightTheme.subHeader6),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    children: List.generate(
+                        500 ~/ 5,
+                        (index) => Expanded(
+                              child: Container(
+                                color: index % 2 == 0
+                                    ? Colors.transparent
+                                    : Colors.grey.shade400,
+                                height: 2,
+                              ),
+                            )),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 17.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Row(
+                          children: const [
+                            Image(
+                              image: AssetImage("assets/icons/clock.png"),
+                              height: 20,
+                              width: 20,
+                            ),
+                            SizedBox(
+                              width: 5.0,
+                            ),
+                            Text(
+                              "6 Months",
+                              style: LightTheme.subHeader6,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: const [
+                            Image(
+                              image: AssetImage("assets/icons/debit.png"),
+                              height: 25,
+                              width: 25,
+                            ),
+                            SizedBox(
+                              width: 5.0,
+                            ),
+                            Text(
+                              "35Lkhs",
+                              style: LightTheme.subHeader6,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
