@@ -75,18 +75,17 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
           iconSize: 24,
           icon: const Icon(Icons.arrow_back_ios),
         ),
-        centerTitle: true,
         title: const Text(
           "Projects",
           style: LightTheme.header,
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            iconSize: 24,
-            icon: const Icon(Icons.list),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {},
+        //     iconSize: 24,
+        //     icon: const Icon(Icons.list),
+        //   ),
+        // ],
       ),
       backgroundColor: backgroundColor,
       body: Padding(
@@ -216,24 +215,24 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     ),
                     items: [
                       DropdownMenuItem(
-                        value: 'Quotation 1',
-                        child: Text('Quotation 1'),
+                        value: '1 BHk Flat',
+                        child: Text('1 BHk Flat'),
                       ),
                       DropdownMenuItem(
-                        value: ' Quotation 2',
-                        child: Text('Quotation 2'),
+                        value: '2 BHk Flat',
+                        child: Text('2 BHk Flat'),
                       ),
                       DropdownMenuItem(
-                        value: 'Quotation 3',
-                        child: Text('Quotation 3'),
+                        value: '3 BHk Flat',
+                        child: Text('3 BHk Flat'),
                       ),
                       DropdownMenuItem(
-                        value: 'Quotation 4',
-                        child: Text('Quotation 4'),
+                        value: '4 BHk Flat',
+                        child: Text('4 BHk Flat'),
                       ),
                       DropdownMenuItem(
-                        value: 'Quotation 5',
-                        child: Text('Quotation 5'),
+                        value: '5 BHk Flat',
+                        child: Text('5 BHk Flat'),
                       ),
                     ],
                     onChanged: (value) {

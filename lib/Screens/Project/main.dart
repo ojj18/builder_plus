@@ -40,8 +40,11 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                 MaterialPageRoute(builder: (context) => CreateProjectScreen()),
               );
             },
-            iconSize: 24,
-            icon: const Icon(Icons.create_new_folder),
+            icon: Image(
+              image: AssetImage("assets/icons/folder-add.png"),
+              height: 20,
+              width: 25,
+            ),
           ),
         ],
       ),

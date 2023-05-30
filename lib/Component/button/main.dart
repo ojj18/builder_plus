@@ -18,7 +18,9 @@ class CommonButton extends StatelessWidget {
       this.iconSize,
       this.gapWidth = 10,
       this.backgroundColor = primaryColor,
-      this.fontSize = fontSize12});
+      this.fontSize = fontSize12,
+      this.fontfamily
+      });
 
   final String? buttonText;
   final VoidCallback? onButtonTap;
@@ -34,6 +36,7 @@ class CommonButton extends StatelessWidget {
   final double? gapWidth;
   final Color? backgroundColor;
   final double? fontSize;
+  final String? fontfamily;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -65,7 +68,9 @@ class CommonButton extends StatelessWidget {
                         buttonText!,
                         style: TextStyle(
                             color: buttonTextColor,
+                            fontFamily: fontfamily,
                             fontSize: fontSize,
+
                             fontWeight: FontWeight.w500),
                       )
                     : const SizedBox.shrink()

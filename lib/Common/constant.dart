@@ -15,7 +15,7 @@ class LightTheme {
       fontSize: fontSize16,
       color: Colors.black45,
       fontWeight: FontWeight.w400,
-      fontFamily: 'Poppins-Bold');
+      fontFamily: 'Poppins-Regular');
   static const TextStyle header3 = TextStyle(
       fontSize: fontSize14,
       color: Colors.black,
@@ -56,17 +56,27 @@ class LightTheme {
       color: Colors.black,
       fontWeight: FontWeight.w400,
       fontFamily: 'Inter');
-   
+
   static const TextStyle subHeader7 = TextStyle(
       fontSize: fontSize16,
       color: textFieldLabelTextColor,
       fontWeight: FontWeight.w600,
       fontFamily: 'Poppins-Regular');
-           static const TextStyle subHeader8= TextStyle(
+  static const TextStyle subHeader8 = TextStyle(
       fontSize: fontSize18,
       color: Colors.black,
       fontWeight: FontWeight.w600,
       fontFamily: 'Inter');
+  static const TextStyle subHeader9 = TextStyle(
+      fontSize: fontSize14,
+      color: loginTextSubheaderColor,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Poppins-Regular');
+  static const TextStyle subHeader10 = TextStyle(
+      fontSize: fontSize30,
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Poppins-Bold');
 }
 
 // Color
@@ -78,6 +88,7 @@ const Color cardBackgroundColor = Color(0xffFFFFFF);
 const Color backgroundColor = Color(0xffF5F5F5);
 const Color textFieldBorderColor = Color(0xff000000);
 const Color textFieldLabelTextColor = Color(0xff707070);
+const Color loginTextSubheaderColor = Color(0xff495566);
 
 // Font size
 const double fontSize10 = 10;
