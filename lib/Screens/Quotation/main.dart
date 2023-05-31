@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:builder_plus/Screens/Quotation/create_quotation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import '../../Common/constant.dart';
 
@@ -38,11 +35,11 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => CreateQuotationScreen()),
+                    builder: (context) => const CreateQuotationScreen()),
               );
             },
             iconSize: 24,
-            icon: Image(
+            icon: const Image(
               image: AssetImage("assets/icons/file-add.png"),
               height: 25,
               width: 24,
@@ -61,7 +58,7 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
         child: Container(
           width: width,
           height: height * 0.25,
-          padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 4.0),
+          padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 4.0),
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -75,23 +72,24 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('RVKS - Quotation', style: LightTheme.subHeader5),
+                      const Text('RVKS - Quotation',
+                          style: LightTheme.subHeader5),
                       Row(
                         children: [
                           InkWell(
                             onTap: () {},
-                            child: Image(
+                            child: const Image(
                               image: AssetImage("assets/icons/visible.png"),
                               height: 18,
                               width: 25,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15.0,
                           ),
                           InkWell(
                             onTap: () {},
-                            child: Image(
+                            child: const Image(
                               image: AssetImage("assets/icons/edit.png"),
                               height: 18,
                               width: 18,
@@ -101,9 +99,10 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                       )
                     ],
                   ),
-                  subtitle: Text('12-05-2023', style: LightTheme.subHeader6),
+                  subtitle:
+                      const Text('12-05-2023', style: LightTheme.subHeader6),
                 ),
-                Padding(
+                const Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                   child: Align(
@@ -113,7 +112,7 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
                     children: List.generate(
                         500 ~/ 5,
@@ -127,14 +126,14 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                             )),
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 17.0),
+                    padding: EdgeInsets.symmetric(vertical: 17.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Row(
-                          children: const [
+                          children: [
                             Image(
                               image: AssetImage("assets/icons/clock.png"),
                               height: 20,
@@ -150,7 +149,7 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                           ],
                         ),
                         Row(
-                          children: const [
+                          children: [
                             Image(
                               image: AssetImage("assets/icons/debit.png"),
                               height: 25,

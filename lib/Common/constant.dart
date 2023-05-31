@@ -89,6 +89,11 @@ const Color backgroundColor = Color(0xffF5F5F5);
 const Color textFieldBorderColor = Color(0xff000000);
 const Color textFieldLabelTextColor = Color(0xff707070);
 const Color loginTextSubheaderColor = Color(0xff495566);
+const Color creditColor =Color(0xFF7E5DF6);
+const Color debitColor =Color(0xff1D9394);
+const Color formFieldColor =Colors.grey;
+
+
 
 // Font size
 const double fontSize10 = 10;

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:builder_plus/Screens/Project/create_project.dart';
 import 'package:builder_plus/Screens/Project/view_project.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +35,11 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CreateProjectScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const CreateProjectScreen()),
               );
             },
-            icon: Image(
+            icon: const Image(
               image: AssetImage("assets/icons/folder-add.png"),
               height: 20,
               width: 25,
@@ -57,13 +56,15 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProjectViewScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const ProjectViewScreen()),
               );
             },
             child: Container(
               width: width,
               height: height * 0.20,
-              padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 7.0, vertical: 4.0),
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -73,7 +74,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ListTile(
+                    const ListTile(
                       title: Text('RVKS Construction',
                           style: LightTheme.subHeader5),
                       subtitle: Text('Laoern ipsum dolor sit amet constar elit',
@@ -94,14 +95,14 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                                 )),
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 17.0),
+                        padding: EdgeInsets.symmetric(vertical: 17.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Row(
-                              children: const [
+                              children: [
                                 Image(
                                   image: AssetImage("assets/icons/clock.png"),
                                   height: 20,
@@ -117,7 +118,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                               ],
                             ),
                             Row(
-                              children: const [
+                              children: [
                                 Image(
                                   image: AssetImage("assets/icons/credit.png"),
                                   height: 25,

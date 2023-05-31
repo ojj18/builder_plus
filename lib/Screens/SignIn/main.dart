@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:builder_plus/Common/constant.dart';
-import 'package:builder_plus/Component/Form/main.dart';
 import 'package:builder_plus/Component/bottom/main.dart';
 import 'package:builder_plus/Component/button/main.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   SizedBox(
                     height: height * 0.17,
-                    child: Image(
-                      image: const AssetImage("assets/icons/circle.png"),
+                    child: const Image(
+                      image: AssetImage("assets/icons/circle.png"),
                     ),
                   ),
                   Positioned(
@@ -41,8 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: 95.0,
                     child: SizedBox(
                       height: height * 0.04,
-                      child: Image(
-                        image: const AssetImage("assets/icons/clrcircle.png"),
+                      child: const Image(
+                        image: AssetImage("assets/icons/clrcircle.png"),
                       ),
                     ),
                   ),
@@ -52,8 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: SizedBox(
                       height: height * 0.01,
                       width: 40.0,
-                      child: Image(
-                        image: const AssetImage("assets/icons/zigzag.png"),
+                      child: const Image(
+                        image: AssetImage("assets/icons/zigzag.png"),
                       ),
                     ),
                   ),
@@ -89,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 20.0,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Username',
                       labelStyle: LightTheme.subHeader7,
                       enabledBorder: UnderlineInputBorder(
@@ -107,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 20.0,
                   ),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Password',
                       labelStyle: LightTheme.subHeader7,
                       enabledBorder: UnderlineInputBorder(

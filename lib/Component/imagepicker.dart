@@ -19,17 +19,17 @@ class ImagePickerButton extends StatefulWidget {
 }
 
 class _ImagePickerButtonState extends State<ImagePickerButton> {
-  String? _image;
+  // String? _image;
   final picker = ImagePicker();
   File? varName;
 
-  @override
-  void initState() {
-    // print('initimgBB------->$_image');
-    _image = widget.initialFile;
-    // print('initimgAA------->$_image');
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // print('initimgBB------->$_image');
+  //   _image = widget.initialFile;
+  //   // print('initimgAA------->$_image');
+  //   super.initState();
+  // }
 
   // @override
   // void didChangeDependencies() async {
@@ -69,16 +69,14 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
 
   Future getImage() async {
     try {
-      final pickedFile = await picker.getImage(
-          source: ImageSource.camera,
-      
-          imageQuality: 50);
+      final pickedFile =
+          await picker.getImage(source: ImageSource.camera, imageQuality: 50);
 
       if (pickedFile != null) {
         File? img = File(pickedFile.path);
         img = await _cropImage(imageFile: img);
         setState(() {
-          _image = img!.path;
+          //  _image = img!.path;
           // widget.getSelectedValue!(_image!);
           Navigator.of(context).pop();
         });
@@ -100,7 +98,7 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
         File? img = File(pickedFile.path);
         img = await _cropImage(imageFile: img);
         setState(() {
-          _image = img!.path;
+          // _image = img!.path;
           // widget.getSelectedValue!(_image!);
           Navigator.of(context).pop();
         });
