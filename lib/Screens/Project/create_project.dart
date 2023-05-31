@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use
-
 import 'package:builder_plus/Common/constant.dart';
 import 'package:builder_plus/Component/Form/main.dart';
 import 'package:builder_plus/Component/button/main.dart';
@@ -34,13 +32,13 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         builder: (context, child) {
           return Theme(
             data: Theme.of(context).copyWith(
-              colorScheme: ColorScheme.light(
+              colorScheme: const ColorScheme.light(
                 primary: primaryColor,
                 onPrimary: Colors.white,
                 onSurface: Colors.black,
               ),
               textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(primary: primaryColor),
+                style: TextButton.styleFrom(foregroundColor: primaryColor),
               ),
             ),
             child: child!,
@@ -98,7 +96,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Project Detail',
                       style: LightTheme.subHeader8,
                     ),
@@ -136,8 +134,8 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     _selectDate(context);
                   },
                   suffixIcon: Container(
-                    padding: EdgeInsets.all(12.0),
-                    child: Image(
+                    padding: const EdgeInsets.all(12.0),
+                    child: const Image(
                       image: AssetImage("assets/icons/calender.png"),
                     ),
                   ),
@@ -174,7 +172,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   width: double.infinity,
                   child: DropdownButtonFormField<String>(
                     value: _selectedCountry,
-                    icon: Visibility(
+                    icon: const Visibility(
                       visible: true,
                       child: Image(
                         image: AssetImage("assets/icons/dropdown-arrow.png"),
@@ -183,37 +181,37 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                       ),
                     ),
                     iconSize: 20.0,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(10.0),
                       hintText: 'Select Quotation',
                       hintStyle: LightTheme.subHeader7,
-                      counter: const SizedBox.shrink(),
-                      errorBorder: const OutlineInputBorder(
+                      counter: SizedBox.shrink(),
+                      errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 1,
                           color: Colors.redAccent,
                         ),
                       ),
-                      border: const OutlineInputBorder(
+                      border: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 1,
                           color: textFieldBorderColor,
                         ),
                       ),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 1,
                           color: textFieldBorderColor,
                         ),
                       ),
-                      enabledBorder: const OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 1,
                           color: textFieldBorderColor,
                         ),
                       ),
                     ),
-                    items: [
+                    items: const [
                       DropdownMenuItem(
                         value: '1 BHk Flat',
                         child: Text('1 BHk Flat'),
@@ -251,7 +249,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                 SizedBox(
                   height: height * 0.05,
                 ),
-                CommonButton(
+                const CommonButton(
                   radius: 10,
                   height: 40,
                   width: 140.0,

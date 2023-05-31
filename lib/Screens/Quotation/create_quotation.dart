@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:builder_plus/Common/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +45,7 @@ class _CreateQuotationScreenState extends State<CreateQuotationScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
+                const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -59,7 +57,7 @@ class _CreateQuotationScreenState extends State<CreateQuotationScreen> {
                   width: width * 0.50,
                   child: DropdownButtonFormField<String>(
                     value: _selectedCountry,
-                    icon: Visibility(
+                    icon: const Visibility(
                       visible: true,
                       child: Image(
                         image: AssetImage("assets/icons/dropdown-arrow.png"),
@@ -67,38 +65,38 @@ class _CreateQuotationScreenState extends State<CreateQuotationScreen> {
                         width: 17.0,
                       ),
                     ),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 7.0, vertical: 5.0),
                       hintText: 'Select Quotation',
                       hintStyle: LightTheme.subHeader9,
-                      counter: const SizedBox.shrink(),
-                      errorBorder: const OutlineInputBorder(
+                      counter: SizedBox.shrink(),
+                      errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 1,
                           color: Colors.redAccent,
                         ),
                       ),
-                      border: const OutlineInputBorder(
+                      border: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 1,
                           color: textFieldBorderColor,
                         ),
                       ),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 1,
                           color: textFieldBorderColor,
                         ),
                       ),
-                      enabledBorder: const OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 1,
                           color: textFieldBorderColor,
                         ),
                       ),
                     ),
-                    items: [
+                    items: const [
                       DropdownMenuItem(
                         value: '1 BHk Flat',
                         child: Text('1 BHk Flat'),
@@ -136,7 +134,7 @@ class _CreateQuotationScreenState extends State<CreateQuotationScreen> {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             height: 40,
             color: Colors.grey,
             thickness: 1,

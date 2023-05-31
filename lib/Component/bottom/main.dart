@@ -5,6 +5,7 @@ import 'package:builder_plus/Screens/Report/main.dart';
 import 'package:flutter/material.dart';
 
 import '../../Common/constant.dart';
+import '../button/main.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -16,6 +17,8 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   List<Widget> screens = [];
   int selectedIndex = 0;
+  bool isCreditEnable = true;
+  bool isDebitEnable = false;
 
   @override
   void initState() {
@@ -95,7 +98,244 @@ class _BottomNavState extends State<BottomNav> {
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25),
+                topRight: Radius.circular(25),
+              )),
+              context: context,
+              builder: (context) {
+                return SizedBox(
+                  height: 500,
+                  child: StatefulBuilder(builder: (context, setState) {
+                    return Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isDebitEnable = false;
+                                        isCreditEnable = true;
+                                      });
+                                    },
+                                    child: Material(
+                                      elevation: isCreditEnable ? 10.0 : 0.0,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(25),
+                                        bottomLeft: Radius.circular(25),
+                                      )),
+                                      child: Container(
+                                        height: 50,
+                                        width: 200,
+                                        decoration: const BoxDecoration(
+                                            color: creditColor,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              bottomLeft: Radius.circular(25),
+                                            )),
+                                        child: const Center(
+                                            child: Text(
+                                          "Income(Credit)",
+                                          style: LightTheme.subHeader2,
+                                        )),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isCreditEnable = false;
+                                        isDebitEnable = true;
+                                      });
+                                    },
+                                    child: Material(
+                                      elevation: isDebitEnable ? 10.0 : 0.0,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(25),
+                                        bottomRight: Radius.circular(25),
+                                      )),
+                                      child: Container(
+                                        height: 50,
+                                        width: 200,
+                                        decoration: const BoxDecoration(
+                                            color: debitColor,
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(25),
+                                              bottomRight: Radius.circular(25),
+                                            )),
+                                        child: const Center(
+                                            child: Text("Expense(Debit)",
+                                                style: LightTheme.subHeader2)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) {
+                                      return AlertDialog(
+                                        content: SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.25,
+                                          child: const Column(
+                                            children: [
+                                              Text("RVKS Construction")
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              },
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                hintText: 'Project Name',
+                                hintStyle: LightTheme.subHeader7,
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xff8F70FF)),
+                                ),
+                                errorBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.red),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    decoration: const InputDecoration(
+                                      hintText: 'Name',
+                                      hintStyle: LightTheme.subHeader7,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff8F70FF)),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: TextFormField(
+                                    decoration: const InputDecoration(
+                                      hintText: 'Amount',
+                                      hintStyle: LightTheme.subHeader7,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff8F70FF)),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              maxLines: 5,
+                              keyboardType: TextInputType.multiline,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: formFieldColor.withOpacity(0.2),
+                                hintText: 'Describe Here...',
+                                hintStyle: LightTheme.subHeader7,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IntrinsicWidth(
+                                    child: CommonButton(
+                                  onButtonTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  radius: 20,
+                                  height: 30,
+                                  width: 100,
+                                  fontSize: fontSize12,
+                                  gapWidth: 0,
+                                  backgroundColor: buttonColor,
+                                  buttonText: "Submit",
+                                )),
+                                const SizedBox(
+                                  width: 50.0,
+                                ),
+                                IntrinsicWidth(
+                                    child: CommonButton(
+                                  onButtonTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  radius: 20,
+                                  height: 30,
+                                  width: 100,
+                                  fontSize: fontSize12,
+                                  gapWidth: 0,
+                                  backgroundColor: secondaryColor,
+                                  buttonText: "Cancel",
+                                )),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                );
+              });
+        },
         backgroundColor: primaryColor,
         child: const Icon(
           Icons.add,
