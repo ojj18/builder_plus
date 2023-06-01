@@ -1,4 +1,5 @@
 import 'package:builder_plus/Component/button/main.dart';
+import 'package:builder_plus/Screens/Project/create_project.dart';
 import 'package:flutter/material.dart';
 
 import '../../Common/constant.dart';
@@ -31,9 +32,18 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
-              iconSize: 28,
-              icon: const Icon(Icons.create_new_folder),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CreateProjectScreen()),
+                );
+              },
+              icon: const Image(
+                image: AssetImage("assets/icons/folder-add.png"),
+                height: 20,
+                width: 25,
+              ),
             ),
           ],
         ),
@@ -72,7 +82,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                   Column(
+                                  Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -114,7 +124,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                             decoration: BoxDecoration(
                                 border:
                                     Border.all(width: 1, color: Colors.grey)),
-                            child:  Row(
+                            child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: const [
@@ -153,7 +163,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                           Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
                               Expanded(
@@ -189,7 +199,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                           Row(
+                          Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: const [
                                 Text(
@@ -240,7 +250,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                     Container(
                                       margin: const EdgeInsets.all(20),
                                       height: 55,
-                                      child:  Row(
+                                      child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [

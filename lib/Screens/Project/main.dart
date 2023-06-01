@@ -1,5 +1,6 @@
 import 'package:builder_plus/Screens/Project/create_project.dart';
 import 'package:builder_plus/Screens/Project/view_project.dart';
+import 'package:builder_plus/Screens/Settings/main.dart';
 import 'package:flutter/material.dart';
 
 import '../../Common/constant.dart';
@@ -21,7 +22,12 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
         elevation: 0.0,
         backgroundColor: primaryColor,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsScreen()),
+            );
+          },
           iconSize: 24,
           icon: const Icon(Icons.settings),
         ),
@@ -95,7 +101,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                                 )),
                       ),
                     ),
-                     Expanded(
+                    Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 17.0),
                         child: Row(
