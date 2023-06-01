@@ -24,6 +24,7 @@ class CommonFormField extends StatelessWidget {
       this.textAlign = TextAlign.start,
       this.readOnly = false,
       this.onTap,
+      this.labelStyle = LightTheme.subHeader7,
       super.key});
   final String? labelText;
   final String? hintText;
@@ -46,6 +47,7 @@ class CommonFormField extends StatelessWidget {
   final TextAlign? textAlign;
   final FloatingLabelBehavior? floatingLabelBehavior;
   final bool readOnly;
+  final TextStyle? labelStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,8 @@ class CommonFormField extends StatelessWidget {
               suffixIcon: suffixIcon,
               contentPadding: const EdgeInsets.all(10.0),
               labelText: labelText,
-              labelStyle: LightTheme.subHeader7,
+              hintText: hintText,
+              labelStyle: labelStyle,
               floatingLabelBehavior: floatingLabelBehavior,
               counter: const SizedBox.shrink(),
               errorBorder: const OutlineInputBorder(

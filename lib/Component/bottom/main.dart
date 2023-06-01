@@ -199,8 +199,8 @@ class _BottomNavState extends State<BottomNav> {
                                                   .size
                                                   .height *
                                               0.25,
-                                          child: const Column(
-                                            children: [
+                                          child: Column(
+                                            children: const [
                                               Text("RVKS Construction")
                                             ],
                                           ),
@@ -278,8 +278,30 @@ class _BottomNavState extends State<BottomNav> {
                             const SizedBox(
                               height: 20.0,
                             ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  hintText: 'Balance',
+                                  hintStyle: LightTheme.subHeader7,
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xff8F70FF)),
+                                  ),
+                                  errorBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.red),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
                             TextFormField(
-                              maxLines: 5,
+                              maxLines: 3,
                               keyboardType: TextInputType.multiline,
                               decoration: InputDecoration(
                                 filled: true,
