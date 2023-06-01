@@ -1,3 +1,4 @@
+import 'package:builder_plus/Screens/Settings/main.dart';
 import 'package:flutter/material.dart';
 
 import '../../Common/constant.dart';
@@ -17,7 +18,12 @@ class _ReportScreenState extends State<ReportScreen> {
         elevation: 0.0,
         backgroundColor: primaryColor,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsScreen()),
+            );
+          },
           iconSize: 24,
           icon: const Icon(Icons.settings),
         ),

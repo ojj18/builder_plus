@@ -38,18 +38,215 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       backgroundColor: backgroundColor,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            height: height*0.70,
+            height: height * 0.70,
             width: width,
+            padding: const EdgeInsets.only(left: 80.0, top: 60.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(children: [],)
+                // SizedBox(height: height*0.07,),
+                InkWell(
+                  onTap: () {},
+                  splashColor: Colors.grey,
+                  child: SizedBox(
+                    height: height * 0.05,
+                    width: width,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Image(
+                          image: AssetImage("assets/icons/profile.png"),
+                          height: 24.0,
+                          width: 28.0,
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Text(
+                          'Profile ',
+                          style: LightTheme.subHeader8,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                InkWell(
+                  onTap: () {},
+                  splashColor: Colors.grey,
+                  child: SizedBox(
+                    height: height * 0.05,
+                    width: width,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Image(
+                          image: AssetImage("assets/icons/addvender.png"),
+                          height: 24.0,
+                          width: 28.0,
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Text(
+                          'Add Vender',
+                          style: LightTheme.subHeader8,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
 
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                InkWell(
+                  onTap: () {},
+                  splashColor: Colors.grey,
+                  child: SizedBox(
+                    height: height * 0.05,
+                    width: width,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Image(
+                          image: AssetImage("assets/icons/payments.png"),
+                          height: 24.0,
+                          width: 28.0,
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Text(
+                          'Payments',
+                          style: LightTheme.subHeader8,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+
+                InkWell(
+                  onTap: () {},
+                  splashColor: Colors.grey,
+                  child: SizedBox(
+                    height: height * 0.05,
+                    width: width,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Image(
+                          image: AssetImage("assets/icons/person.png"),
+                          height: 24.0,
+                          width: 28.0,
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Text(
+                          'Contact Us ',
+                          style: LightTheme.subHeader8,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                InkWell(
+                  onTap: () {},
+                  splashColor: Colors.grey,
+                  child: SizedBox(
+                    height: height * 0.05,
+                    width: width,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Image(
+                          image: AssetImage("assets/icons/aboutus.png"),
+                          height: 24.0,
+                          width: 28.0,
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Text(
+                          'About Us',
+                          style: LightTheme.subHeader8,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                InkWell(
+                  onTap: () {},
+                  splashColor: Colors.grey,
+                  child: SizedBox(
+                    height: height * 0.05,
+                    width: width,
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Image(
+                          image: AssetImage("assets/icons/UserShield.png"),
+                          height: 24.0,
+                          width: 28.0,
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Text(
+                          'Privacy Policy ',
+                          style: LightTheme.subHeader8,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 50.0,bottom: 50.0),
+            child: InkWell(
+              onTap: () {},
+              splashColor: Colors.grey,
+              child: SizedBox(
+                height: height * 0.05,
+                width: width,
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Image(
+                      image: AssetImage("assets/icons/Logout.png"),
+                      height: 24.0,
+                      width: 28.0,
+                    ),
+                    SizedBox(
+                      width: 15.0,
+                    ),
+                    Text(
+                      'Log Out',
+                      style: LightTheme.subHeader8,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
