@@ -126,14 +126,14 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                             )),
                   ),
                 ),
-                const Expanded(
+                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 17.0),
+                    padding: const EdgeInsets.symmetric(vertical: 17.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Image(
                               image: AssetImage("assets/icons/clock.png"),
                               height: 20,
@@ -149,7 +149,7 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                           ],
                         ),
                         Row(
-                          children: [
+                          children: const [
                             Image(
                               image: AssetImage("assets/icons/debit.png"),
                               height: 25,

@@ -95,14 +95,14 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                                 )),
                       ),
                     ),
-                    const Expanded(
+                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 17.0),
+                        padding: const EdgeInsets.symmetric(vertical: 17.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Row(
-                              children: [
+                              children: const [
                                 Image(
                                   image: AssetImage("assets/icons/clock.png"),
                                   height: 20,
@@ -118,7 +118,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                               ],
                             ),
                             Row(
-                              children: [
+                              children: const [
                                 Image(
                                   image: AssetImage("assets/icons/credit.png"),
                                   height: 25,

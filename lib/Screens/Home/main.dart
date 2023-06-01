@@ -1,4 +1,6 @@
 import 'package:builder_plus/Common/constant.dart';
+import 'package:builder_plus/Screens/Home/see_all_transaction.dart';
+import 'package:builder_plus/Screens/Settings/main.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +18,12 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0.0,
         backgroundColor: primaryColor,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsScreen()),
+            );
+          },
           iconSize: 30,
           icon: const Icon(Icons.settings),
         ),
@@ -65,10 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
+                              children: const [
                                 Text(
                                   "38776.0",
                                   style: LightTheme.subHeader,
@@ -168,16 +175,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Recent transactions",
                             style: LightTheme.header3,
                           ),
-                          Text(
-                            "See all",
-                            style: LightTheme.header2,
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SeeAllTransactionListScreen()),
+                              );
+                            },
+                            child: const Text(
+                              "See all",
+                              style: LightTheme.header2,
+                            ),
                           )
                         ],
                       ),
@@ -192,20 +209,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   margin: const EdgeInsets.all(20),
                                   height: 55,
-                                  child: const Row(
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       IntrinsicWidth(
                                         child: Row(
                                           children: [
-                                            CircleAvatar(
+                                            const CircleAvatar(
                                               backgroundColor: Colors.white,
                                               backgroundImage: NetworkImage(
                                                 "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 10,
                                             ),
                                             Column(
@@ -214,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
-                                              children: [
+                                              children: const [
                                                 Text("Cement"),
                                                 Text("17 Jun 2023"),
                                                 Text("5 quantity * 460 Rs"),
@@ -223,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ],
                                         ),
                                       ),
-                                      Align(
+                                      const Align(
                                           alignment: Alignment.centerRight,
                                           child: IntrinsicWidth(
                                               child: Text("INR -1240")))
@@ -253,7 +270,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-   
     );
   }
 }

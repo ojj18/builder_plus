@@ -72,11 +72,11 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  const Column(
+                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: [
+                                    children: const [
                                       Text(
                                         "RVKS Construction",
                                         style: LightTheme.header3,
@@ -114,10 +114,10 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                             decoration: BoxDecoration(
                                 border:
                                     Border.all(width: 1, color: Colors.grey)),
-                            child: const Row(
+                            child:  Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: [
+                                children: const [
                                   Text("Estimation: 332 Lkhs"),
                                   Text("Duration: 12 Months"),
                                 ]),
@@ -153,9 +153,9 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Row(
+                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: const [
                               Expanded(
                                   child: CommonButton(
                                 radius: 25,
@@ -189,9 +189,9 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                              children: const [
                                 Text(
                                   "Transactions",
                                   style: LightTheme.subHeader4,
@@ -240,20 +240,20 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                     Container(
                                       margin: const EdgeInsets.all(20),
                                       height: 55,
-                                      child: const Row(
+                                      child:  Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           IntrinsicWidth(
                                             child: Row(
                                               children: [
-                                                CircleAvatar(
+                                                const CircleAvatar(
                                                   backgroundColor: Colors.white,
                                                   backgroundImage: NetworkImage(
                                                     "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 10,
                                                 ),
                                                 Column(
@@ -262,7 +262,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceBetween,
-                                                  children: [
+                                                  children: const [
                                                     Text("Cement"),
                                                     Text("17 Jun 2023"),
                                                     Text("5 quantity * 460 Rs"),
@@ -271,7 +271,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                               ],
                                             ),
                                           ),
-                                          Align(
+                                          const Align(
                                               alignment: Alignment.centerRight,
                                               child: IntrinsicWidth(
                                                   child: Text("INR -1240")))
