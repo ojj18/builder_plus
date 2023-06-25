@@ -72,10 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.end,
-                              children: const [
+                              children: [
                                 Text(
                                   "38776.0",
                                   style: LightTheme.subHeader,
@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                               height: MediaQuery.of(context).size.height * 0.1,
-                              width: MediaQuery.of(context).size.width * 0.75,
+                              width: MediaQuery.of(context).size.width * 0.75  ,
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: primaryColor,
@@ -209,20 +209,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   margin: const EdgeInsets.all(20),
                                   height: 55,
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       IntrinsicWidth(
                                         child: Row(
                                           children: [
-                                            const CircleAvatar(
+                                            CircleAvatar(
                                               backgroundColor: Colors.white,
                                               backgroundImage: NetworkImage(
                                                 "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
                                               ),
                                             ),
-                                            const SizedBox(
+                                            SizedBox(
                                               width: 10,
                                             ),
                                             Column(
@@ -231,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
-                                              children: const [
+                                              children: [
                                                 Text("Cement"),
                                                 Text("17 Jun 2023"),
                                                 Text("5 quantity * 460 Rs"),
@@ -240,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ],
                                         ),
                                       ),
-                                      const Align(
+                                      Align(
                                           alignment: Alignment.centerRight,
                                           child: IntrinsicWidth(
                                               child: Text("INR -1240")))

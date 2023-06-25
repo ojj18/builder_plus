@@ -1,4 +1,5 @@
 import 'package:builder_plus/Screens/Quotation/create_quotation.dart';
+import 'package:builder_plus/Screens/Quotation/view_quotation.dart';
 import 'package:builder_plus/Screens/Settings/main.dart';
 import 'package:flutter/material.dart';
 
@@ -83,7 +84,13 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                       Row(
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const QuotationViewScreen()));
+                            },
                             child: const Image(
                               image: AssetImage("assets/icons/visible.png"),
                               height: 18,
@@ -132,14 +139,14 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                             )),
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 17.0),
+                    padding: EdgeInsets.symmetric(vertical: 17.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Row(
-                          children: const [
+                          children: [
                             Image(
                               image: AssetImage("assets/icons/clock.png"),
                               height: 20,
@@ -155,7 +162,7 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
                           ],
                         ),
                         Row(
-                          children: const [
+                          children: [
                             Image(
                               image: AssetImage("assets/icons/debit.png"),
                               height: 25,
