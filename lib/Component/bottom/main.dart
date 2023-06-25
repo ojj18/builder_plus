@@ -19,6 +19,8 @@ class _BottomNavState extends State<BottomNav> {
   int selectedIndex = 0;
   bool isCreditEnable = true;
   bool isDebitEnable = false;
+  bool isMoreOptionEnable = false;
+  TransferType transferType = TransferType.cash;
 
   @override
   void initState() {
@@ -99,7 +101,10 @@ class _BottomNavState extends State<BottomNav> {
           FloatingActionButtonLocation.miniCenterDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          isMoreOptionEnable=false;
           showModalBottomSheet(
+              useSafeArea: true,
+              isScrollControlled: true,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(25),
@@ -107,12 +112,13 @@ class _BottomNavState extends State<BottomNav> {
               )),
               context: context,
               builder: (context) {
-                return SizedBox(
-                  height: 500,
+                return IntrinsicHeight(
                   child: StatefulBuilder(builder: (context, setState) {
                     return Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: SingleChildScrollView(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,41 +194,92 @@ class _BottomNavState extends State<BottomNav> {
                             const SizedBox(
                               height: 20.0,
                             ),
-                            TextFormField(
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (ctx) {
-                                      return AlertDialog(
-                                        content: SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.25,
-                                          child: Column(
-                                            children: const [
-                                              Text("RVKS Construction")
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    });
-                              },
-                              readOnly: true,
-                              decoration: const InputDecoration(
-                                hintText: 'Project Name',
-                                hintStyle: LightTheme.subHeader7,
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (ctx) {
+                                            return AlertDialog(
+                                              content: SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.25,
+                                                child: const Column(
+                                                  children: [
+                                                    Text("RVKS Construction")
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          });
+                                    },
+                                    readOnly: true,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Project Name',
+                                      hintStyle: LightTheme.subHeader7,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff8F70FF)),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Color(0xff8F70FF)),
+                                const SizedBox(
+                                  width: 10,
                                 ),
-                                errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.red),
+                                Expanded(
+                                  child: TextFormField(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (ctx) {
+                                            return AlertDialog(
+                                              content: SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.25,
+                                                child: const Column(
+                                                  children: [
+                                                    Text("RVKS Construction")
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          });
+                                    },
+                                    readOnly: true,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Vendor',
+                                      hintStyle: LightTheme.subHeader7,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff8F70FF)),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                             const SizedBox(
                               height: 10.0,
@@ -233,7 +290,7 @@ class _BottomNavState extends State<BottomNav> {
                                 Expanded(
                                   child: TextFormField(
                                     decoration: const InputDecoration(
-                                      hintText: 'Name',
+                                      hintText: 'Item',
                                       hintStyle: LightTheme.subHeader7,
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -278,40 +335,131 @@ class _BottomNavState extends State<BottomNav> {
                             const SizedBox(
                               height: 20.0,
                             ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                  hintText: 'Balance',
-                                  hintStyle: LightTheme.subHeader7,
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
+                            CommonButton(
+                              gapWidth: 0,
+                              radius: 20,
+                              height: 30,
+                              width: 100,
+                              onButtonTap: () {
+                                setState(() {
+                                  isMoreOptionEnable = !isMoreOptionEnable;
+                                });
+                              },
+                              buttonText: "More option",
+                              backgroundColor: primaryColor,
+                            ),
+                            if (isMoreOptionEnable)
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: TextFormField(
+                                          decoration: const InputDecoration(
+                                            hintText: 'Balance',
+                                            hintStyle: LightTheme.subHeader7,
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Color(0xff8F70FF)),
+                                            ),
+                                            errorBorder: UnderlineInputBorder(
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      const Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(top: 15.0),
+                                          child: Text(
+                                            "Total",
+                                            style: LightTheme.subHeader7,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xff8F70FF)),
+                                  const SizedBox(
+                                    height: 20.0,
                                   ),
-                                  errorBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red),
+                                  TextFormField(
+                                    maxLines: 3,
+                                    keyboardType: TextInputType.multiline,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor:
+                                          formFieldColor.withOpacity(0.2),
+                                      hintText: 'Describe Here...',
+                                      hintStyle: LightTheme.subHeader7,
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      errorBorder: InputBorder.none,
+                                    ),
                                   ),
+                                ],
+                              ),
+                            Row(
+                              children: [
+                                Row(
+                                  children: [
+                                    Radio(
+                                      activeColor: primaryColor,
+                                      value: TransferType.cash,
+                                      groupValue: transferType,
+                                      onChanged: (TransferType? value) {
+                                        setState(() {
+                                          transferType = value!;
+                                        });
+                                      },
+                                    ),
+                                    const Text("Cash")
+                                  ],
                                 ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            TextFormField(
-                              maxLines: 3,
-                              keyboardType: TextInputType.multiline,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: formFieldColor.withOpacity(0.2),
-                                hintText: 'Describe Here...',
-                                hintStyle: LightTheme.subHeader7,
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                              ),
+                                Row(
+                                  children: [
+                                    Radio(
+                                      activeColor: primaryColor,
+                                      value: TransferType.bankTranfer,
+                                      groupValue: transferType,
+                                      onChanged: (TransferType? value) {
+                                        setState(() {
+                                          transferType = value!;
+                                        });
+                                      },
+                                    ),
+                                    const Text("Bank transfer")
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Radio(
+                                      activeColor: primaryColor,
+                                      value: TransferType.cheque,
+                                      groupValue: transferType,
+                                      onChanged: (TransferType? value) {
+                                        setState(() {
+                                          transferType = value!;
+                                        });
+                                      },
+                                    ),
+                                    const Text("Cheque")
+                                  ],
+                                ),
+                              ],
                             ),
                             const SizedBox(
                               height: 20.0,

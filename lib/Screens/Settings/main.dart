@@ -1,5 +1,9 @@
 import 'package:builder_plus/Common/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../route/main.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -40,13 +44,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
+          SizedBox(
             height: height * 0.70,
             width: width,
-            padding: const EdgeInsets.only(left: 80.0, top: 60.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // SizedBox(height: height*0.07,),
                 InkWell(
@@ -55,9 +57,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: SizedBox(
                     height: height * 0.05,
                     width: width,
-                    child: Row(
+                    child: const Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Image(
                           image: AssetImage("assets/icons/profile.png"),
                           height: 24.0,
@@ -83,9 +85,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: SizedBox(
                     height: height * 0.05,
                     width: width,
-                    child: Row(
+                    child: const Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Image(
                           image: AssetImage("assets/icons/addvender.png"),
                           height: 24.0,
@@ -112,9 +114,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: SizedBox(
                     height: height * 0.05,
                     width: width,
-                    child: Row(
+                    child: const Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Image(
                           image: AssetImage("assets/icons/payments.png"),
                           height: 24.0,
@@ -141,9 +143,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: SizedBox(
                     height: height * 0.05,
                     width: width,
-                    child: Row(
+                    child: const Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Image(
                           image: AssetImage("assets/icons/person.png"),
                           height: 24.0,
@@ -169,9 +171,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: SizedBox(
                     height: height * 0.05,
                     width: width,
-                    child: Row(
+                    child: const Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Image(
                           image: AssetImage("assets/icons/aboutus.png"),
                           height: 24.0,
@@ -197,9 +199,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: SizedBox(
                     height: height * 0.05,
                     width: width,
-                    child: Row(
+                    child: const Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Image(
                           image: AssetImage("assets/icons/UserShield.png"),
                           height: 24.0,
@@ -220,16 +222,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 50.0,bottom: 50.0),
+            padding: const EdgeInsets.only(left: 50.0, bottom: 50.0),
             child: InkWell(
-              onTap: () {},
+              onTap: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                await preferences.clear();
+                Get.toNamed(RouteSetting.login);
+              },
               splashColor: Colors.grey,
               child: SizedBox(
                 height: height * 0.05,
                 width: width,
-                child: Row(
+                child: const Row(
                   // mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Image(
                       image: AssetImage("assets/icons/Logout.png"),
                       height: 24.0,

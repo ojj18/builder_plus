@@ -16,7 +16,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
   String? _selectedCountry;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController clientName = TextEditingController();
-  final TextEditingController projectsDetails = TextEditingController();
+  final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController startDate = TextEditingController();
   final TextEditingController projectDuration = TextEditingController();
   final TextEditingController paymentTerms = TextEditingController();
@@ -118,10 +118,10 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   height: height * 0.02,
                 ),
                 CommonFormField(
-                  textController: projectsDetails,
-                  height: 90.0,
+                  textController: phoneNumber,
+                  height: 52.0,
                   width: width,
-                  labelText: 'Projects Details',
+                  labelText: 'Mobile no',
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
                 SizedBox(
@@ -147,21 +147,12 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                 SizedBox(
                   height: height * 0.02,
                 ),
-                CommonFormField(
-                  textController: projectDuration,
-                  height: 52.0,
-                  width: width,
-                  labelText: 'Project Duration',
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
+               
                 CommonFormField(
                   textController: paymentTerms,
                   height: 52.0,
                   width: width,
-                  labelText: 'Payment Terms',
+                  labelText: 'Payment value',
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
                 SizedBox(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+String uri = "https://estimator.pythonanywhere.com/api/token/";
+
 class LightTheme {
   static const TextStyle header = TextStyle(
     fontSize: fontSize20,
@@ -82,6 +84,8 @@ class LightTheme {
       color: Colors.black45,
       fontWeight: FontWeight.bold,
       fontFamily: 'Poppins-Bold');
+
+  static var userToken = "";
 }
 
 // Color
@@ -117,3 +121,5 @@ const double fontSize48 = 48;
 const double fontSize56 = 56;
 const double fontSize64 = 64;
 const double fontSize72 = 72;
+
+enum TransferType{cash,bankTranfer,cheque}

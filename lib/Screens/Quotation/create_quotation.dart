@@ -46,10 +46,10 @@ class _CreateQuotationScreenState extends State<CreateQuotationScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
+                const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text('Rate Prediction', style: LightTheme.subHeader5),
                       Text('Rs 1,506 per sft', style: LightTheme.subHeader6),
                     ]),
@@ -187,9 +187,9 @@ class _CreateQuotationScreenState extends State<CreateQuotationScreen> {
                     children: [
                       SizedBox(
                         width: width * 0.50,
-                        child: Row(
+                        child: const Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
+                            children: [
                               Expanded(
                                 child: CommonFormField(
                                   height: 46.0,

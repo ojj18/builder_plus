@@ -1,12 +1,17 @@
 import 'dart:async';
 
 import 'package:builder_plus/Common/constant.dart';
+import 'package:builder_plus/route/main.dart';
 import 'package:builder_plus/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import 'Screens/SignIn/main.dart';
+import 'Services/controller/signinController/main.dart';
+import 'helper/dependencies.dart' as dept;
 
-main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dept.init();
   runApp(const BuilderPlusApp());
 }
 
@@ -21,9 +26,11 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   void initState() {
     Timer(
-        const Duration(seconds: 3),
-        () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen())));
+      const Duration(seconds: 3),
+      () => Get.find<SignInController>().userLoggedIn()
+          ? RouteSetting.bottomNav
+          : RouteSetting.login,
+    );
     super.initState();
   }
 
@@ -39,9 +46,12 @@ class BuilderPlusApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MyHomeScreen(),
+     initialRoute: Get.find<SignInController>().userLoggedIn()
+          ? RouteSetting.bottomNav
+          : RouteSetting.login,
+           getPages: RouteSetting.routeList,
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
             secondary: headerColor,
