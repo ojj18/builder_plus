@@ -36,22 +36,22 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
           "Projects",
           style: LightTheme.header,
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const CreateProjectScreen()),
-              );
-            },
-            icon: const Image(
-              image: AssetImage("assets/icons/folder-add.png"),
-              height: 20,
-              width: 25,
-            ),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //             builder: (context) => const CreateProjectScreen()),
+        //       );
+        //     },
+        //     icon: const Image(
+        //       image: AssetImage("assets/icons/folder-add.png"),
+        //       height: 20,
+        //       width: 25,
+        //     ),
+        //   ),
+        // ],
       ),
       backgroundColor: backgroundColor,
       body: ListView.builder(
@@ -101,7 +101,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                                 )),
                       ),
                     ),
-                     const Expanded(
+                    const Expanded(
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 17.0),
                         child: Row(
@@ -149,6 +149,22 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             ),
           );
         }),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const CreateProjectScreen()),
+          );
+        },
+        backgroundColor: primaryColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 30,
+        ),
       ),
     );
   }

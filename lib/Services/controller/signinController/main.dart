@@ -30,11 +30,11 @@ class SignInController extends GetxController implements GetxService {
       signInRepo.saveuserToken(response.body['access']);
       userModel = UserModel.fromJson(response.body);
 
-      showAlertBox(70, Icons.check_circle, primaryColor, "Success",
-          "Signin successfully", () {
-        Navigator.pop(Get.context!);
-        Get.toNamed(RouteSetting.bottomNav);
-      });
+      // showAlertBox(70, Icons.check_circle, primaryColor, "Success",
+      //     "Signin successfully", () {
+      //   Navigator.pop(Get.context!);
+        Get.offNamed(RouteSetting.bottomNav);
+      // });
     } else {
       ErrorModel errorModel = ErrorModel();
       errorModel = ErrorModel.fromJson(response.body);

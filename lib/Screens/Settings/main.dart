@@ -44,181 +44,184 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            height: height * 0.70,
-            width: width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // SizedBox(height: height*0.07,),
-                InkWell(
-                  onTap: () {},
-                  splashColor: Colors.grey,
-                  child: SizedBox(
-                    height: height * 0.05,
-                    width: width,
-                    child: const Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image(
-                          image: AssetImage("assets/icons/profile.png"),
-                          height: 24.0,
-                          width: 28.0,
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Text(
-                          'Profile ',
-                          style: LightTheme.subHeader8,
-                        )
-                      ],
+          Padding(
+            padding: const EdgeInsets.only(left: 50.0,),
+            child: SizedBox(
+              height: height * 0.70,
+              width: width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // SizedBox(height: height*0.07,),
+                  InkWell(
+                    onTap: () {},
+                    splashColor: Colors.grey,
+                    child: SizedBox(
+                      height: height * 0.05,
+                      width: width,
+                      child: const Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/icons/profile.png"),
+                            height: 24.0,
+                            width: 28.0,
+                          ),
+                          SizedBox(
+                            width: 15.0,
+                          ),
+                          Text(
+                            'Profile ',
+                            style: LightTheme.subHeader8,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                InkWell(
-                  onTap: () {},
-                  splashColor: Colors.grey,
-                  child: SizedBox(
-                    height: height * 0.05,
-                    width: width,
-                    child: const Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image(
-                          image: AssetImage("assets/icons/addvender.png"),
-                          height: 24.0,
-                          width: 28.0,
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Text(
-                          'Add Vender',
-                          style: LightTheme.subHeader8,
-                        )
-                      ],
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    splashColor: Colors.grey,
+                    child: SizedBox(
+                      height: height * 0.05,
+                      width: width,
+                      child: const Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/icons/addvender.png"),
+                            height: 24.0,
+                            width: 28.0,
+                          ),
+                          SizedBox(
+                            width: 15.0,
+                          ),
+                          Text(
+                            'Add Vender',
+                            style: LightTheme.subHeader8,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                InkWell(
-                  onTap: () {},
-                  splashColor: Colors.grey,
-                  child: SizedBox(
-                    height: height * 0.05,
-                    width: width,
-                    child: const Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image(
-                          image: AssetImage("assets/icons/payments.png"),
-                          height: 24.0,
-                          width: 28.0,
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Text(
-                          'Payments',
-                          style: LightTheme.subHeader8,
-                        )
-                      ],
+              
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    splashColor: Colors.grey,
+                    child: SizedBox(
+                      height: height * 0.05,
+                      width: width,
+                      child: const Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/icons/payments.png"),
+                            height: 24.0,
+                            width: 28.0,
+                          ),
+                          SizedBox(
+                            width: 15.0,
+                          ),
+                          Text(
+                            'Payments',
+                            style: LightTheme.subHeader8,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-
-                InkWell(
-                  onTap: () {},
-                  splashColor: Colors.grey,
-                  child: SizedBox(
-                    height: height * 0.05,
-                    width: width,
-                    child: const Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image(
-                          image: AssetImage("assets/icons/person.png"),
-                          height: 24.0,
-                          width: 28.0,
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Text(
-                          'Contact Us ',
-                          style: LightTheme.subHeader8,
-                        )
-                      ],
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+              
+                  InkWell(
+                    onTap: () {},
+                    splashColor: Colors.grey,
+                    child: SizedBox(
+                      height: height * 0.05,
+                      width: width,
+                      child: const Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/icons/person.png"),
+                            height: 24.0,
+                            width: 28.0,
+                          ),
+                          SizedBox(
+                            width: 15.0,
+                          ),
+                          Text(
+                            'Contact Us ',
+                            style: LightTheme.subHeader8,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                InkWell(
-                  onTap: () {},
-                  splashColor: Colors.grey,
-                  child: SizedBox(
-                    height: height * 0.05,
-                    width: width,
-                    child: const Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image(
-                          image: AssetImage("assets/icons/aboutus.png"),
-                          height: 24.0,
-                          width: 28.0,
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Text(
-                          'About Us',
-                          style: LightTheme.subHeader8,
-                        )
-                      ],
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    splashColor: Colors.grey,
+                    child: SizedBox(
+                      height: height * 0.05,
+                      width: width,
+                      child: const Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/icons/aboutus.png"),
+                            height: 24.0,
+                            width: 28.0,
+                          ),
+                          SizedBox(
+                            width: 15.0,
+                          ),
+                          Text(
+                            'About Us',
+                            style: LightTheme.subHeader8,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                InkWell(
-                  onTap: () {},
-                  splashColor: Colors.grey,
-                  child: SizedBox(
-                    height: height * 0.05,
-                    width: width,
-                    child: const Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image(
-                          image: AssetImage("assets/icons/UserShield.png"),
-                          height: 24.0,
-                          width: 28.0,
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Text(
-                          'Privacy Policy ',
-                          style: LightTheme.subHeader8,
-                        )
-                      ],
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    splashColor: Colors.grey,
+                    child: SizedBox(
+                      height: height * 0.05,
+                      width: width,
+                      child: const Row(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/icons/UserShield.png"),
+                            height: 24.0,
+                            width: 28.0,
+                          ),
+                          SizedBox(
+                            width: 15.0,
+                          ),
+                          Text(
+                            'Privacy Policy ',
+                            style: LightTheme.subHeader8,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Padding(
@@ -228,7 +231,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SharedPreferences preferences =
                     await SharedPreferences.getInstance();
                 await preferences.clear();
-                Get.toNamed(RouteSetting.login);
+                Get.offAllNamed(RouteSetting.login);
+               // Get.toNamed(RouteSetting.login);
               },
               splashColor: Colors.grey,
               child: SizedBox(

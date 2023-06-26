@@ -13,7 +13,7 @@ class CreateProjectScreen extends StatefulWidget {
 }
 
 class _CreateProjectScreenState extends State<CreateProjectScreen> {
-  String? _selectedCountry;
+//  String? _selectedCountry;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController clientName = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
@@ -152,91 +152,98 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   textController: paymentTerms,
                   height: 52.0,
                   width: width,
-                  labelText: 'Payment value',
+                  labelText: 'Project value',
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
                 SizedBox(
                   height: height * 0.02,
                 ),
-                SizedBox(
+                  CommonFormField(
+                  textController: paymentTerms,
                   height: 52.0,
-                  width: double.infinity,
-                  child: DropdownButtonFormField<String>(
-                    value: _selectedCountry,
-                    icon: const Visibility(
-                      visible: true,
-                      child: Image(
-                        image: AssetImage("assets/icons/dropdown-arrow.png"),
-                        height: 20.0,
-                        width: 20.0,
-                      ),
-                    ),
-                    iconSize: 20.0,
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
-                      hintText: 'Select Quotation',
-                      hintStyle: LightTheme.subHeader7,
-                      counter: SizedBox.shrink(),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: Colors.redAccent,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: textFieldBorderColor,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: textFieldBorderColor,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: textFieldBorderColor,
-                        ),
-                      ),
-                    ),
-                    items: const [
-                      DropdownMenuItem(
-                        value: '1 BHk Flat',
-                        child: Text('1 BHk Flat'),
-                      ),
-                      DropdownMenuItem(
-                        value: '2 BHk Flat',
-                        child: Text('2 BHk Flat'),
-                      ),
-                      DropdownMenuItem(
-                        value: '3 BHk Flat',
-                        child: Text('3 BHk Flat'),
-                      ),
-                      DropdownMenuItem(
-                        value: '4 BHk Flat',
-                        child: Text('4 BHk Flat'),
-                      ),
-                      DropdownMenuItem(
-                        value: '5 BHk Flat',
-                        child: Text('5 BHk Flat'),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedCountry = value!;
-                      });
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please select an option';
-                      }
-                      return null;
-                    },
-                  ),
+                  width: width,
+                  labelText: 'Location',
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
+                // SizedBox(
+                //   height: 52.0,
+                //   width: double.infinity,
+                //   child: DropdownButtonFormField<String>(
+                //     value: _selectedCountry,
+                //     icon: const Visibility(
+                //       visible: true,
+                //       child: Image(
+                //         image: AssetImage("assets/icons/dropdown-arrow.png"),
+                //         height: 20.0,
+                //         width: 20.0,
+                //       ),
+                //     ),
+                //     iconSize: 20.0,
+                //     decoration: const InputDecoration(
+                //       contentPadding: EdgeInsets.all(10.0),
+                //       hintText: 'Select Quotation',
+                //       hintStyle: LightTheme.subHeader7,
+                //       counter: SizedBox.shrink(),
+                //       errorBorder: OutlineInputBorder(
+                //         borderSide: BorderSide(
+                //           width: 1,
+                //           color: Colors.redAccent,
+                //         ),
+                //       ),
+                //       border: OutlineInputBorder(
+                //         borderSide: BorderSide(
+                //           width: 1,
+                //           color: textFieldBorderColor,
+                //         ),
+                //       ),
+                //       focusedBorder: OutlineInputBorder(
+                //         borderSide: BorderSide(
+                //           width: 1,
+                //           color: textFieldBorderColor,
+                //         ),
+                //       ),
+                //       enabledBorder: OutlineInputBorder(
+                //         borderSide: BorderSide(
+                //           width: 1,
+                //           color: textFieldBorderColor,
+                //         ),
+                //       ),
+                //     ),
+                //     items: const [
+                //       DropdownMenuItem(
+                //         value: '1 BHk Flat',
+                //         child: Text('1 BHk Flat'),
+                //       ),
+                //       DropdownMenuItem(
+                //         value: '2 BHk Flat',
+                //         child: Text('2 BHk Flat'),
+                //       ),
+                //       DropdownMenuItem(
+                //         value: '3 BHk Flat',
+                //         child: Text('3 BHk Flat'),
+                //       ),
+                //       DropdownMenuItem(
+                //         value: '4 BHk Flat',
+                //         child: Text('4 BHk Flat'),
+                //       ),
+                //       DropdownMenuItem(
+                //         value: '5 BHk Flat',
+                //         child: Text('5 BHk Flat'),
+                //       ),
+                //     ],
+                //     onChanged: (value) {
+                //       setState(() {
+                //         _selectedCountry = value!;
+                //       });
+                //     },
+                //     validator: (value) {
+                //       if (value == null || value.isEmpty) {
+                //         return 'Please select an option';
+                //       }
+                //       return null;
+                //     },
+                //   ),
+                // ),
                 SizedBox(
                   height: height * 0.05,
                 ),
@@ -253,6 +260,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
           ),
         ),
       ),
+      
     );
   }
 }
