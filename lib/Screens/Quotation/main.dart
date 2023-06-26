@@ -36,23 +36,23 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
           "Quotation",
           style: LightTheme.header,
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const CreateQuotationScreen()),
-              );
-            },
-            iconSize: 24,
-            icon: const Image(
-              image: AssetImage("assets/icons/file-add.png"),
-              height: 25,
-              width: 24,
-            ),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //             builder: (context) => const CreateQuotationScreen()),
+        //       );
+        //     },
+        //     iconSize: 24,
+        //     icon: const Image(
+        //       image: AssetImage("assets/icons/file-add.png"),
+        //       height: 25,
+        //       width: 24,
+        //     ),
+        //   ),
+        // ],
       ),
       backgroundColor: backgroundColor,
       body: InkWell(
@@ -184,6 +184,22 @@ class _QuotationListScreenState extends State<QuotationListScreen> {
               ],
             ),
           ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const CreateQuotationScreen()),
+          );
+        },
+        backgroundColor: primaryColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 30,
         ),
       ),
     );

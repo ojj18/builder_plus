@@ -33,6 +33,16 @@ class _ReportScreenState extends State<ReportScreen> {
           style: LightTheme.header,
         ),
       ),
+      body: CustomScrollView(
+        shrinkWrap: true,
+        slivers: [
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 10.0,
                       ),
                       const Text(
-                        "Let's see construction expense manager",
+                        "Let's build togather",
                         style: LightTheme.subHeader9,
                       ),
                       const SizedBox(
@@ -191,19 +191,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Center(
-                        child: InkWell(
-                          onTap: () {},
-                          child: const Text(
-                            "SIGN UP",
-                            style: TextStyle(
-                                fontFamily: 'Poppins-Bold',
-                                color: Colors.black,
-                                fontSize: fontSize18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )
+                      // Center(
+                      //   child: InkWell(
+                      //     onTap: () {},
+                      //     child: const Text(
+                      //       "SIGN UP",
+                      //       style: TextStyle(
+                      //           fontFamily: 'Poppins-Bold',
+                      //           color: Colors.black,
+                      //           fontSize: fontSize18,
+                      //           fontWeight: FontWeight.bold),
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
