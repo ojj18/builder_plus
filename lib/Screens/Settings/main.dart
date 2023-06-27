@@ -1,4 +1,5 @@
 import 'package:builder_plus/Common/constant.dart';
+import 'package:builder_plus/Screens/Vendor/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,7 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           icon: const Icon(Icons.arrow_back_ios),
         ),
         title: const Text(
-          "Settings",
+          "Menu",
           style: LightTheme.header,
         ),
         // actions: [
@@ -45,7 +46,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 50.0,),
+            padding: const EdgeInsets.only(
+              left: 50.0,
+            ),
             child: SizedBox(
               height: height * 0.70,
               width: width,
@@ -63,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image(
-                            image: AssetImage("assets/icons/profile.png"),
+                            image: AssetImage("assets/icons/person.png"),
                             height: 24.0,
                             width: 28.0,
                           ),
@@ -82,7 +85,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     height: height * 0.02,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CreateVendorScreen()),
+                      );
+                    },
                     splashColor: Colors.grey,
                     child: SizedBox(
                       height: height * 0.05,
@@ -106,7 +115,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                   ),
-              
+
                   SizedBox(
                     height: height * 0.02,
                   ),
@@ -128,7 +137,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             width: 15.0,
                           ),
                           Text(
-                            'Payments',
+                            'Services',
                             style: LightTheme.subHeader8,
                           )
                         ],
@@ -138,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SizedBox(
                     height: height * 0.02,
                   ),
-              
+
                   InkWell(
                     onTap: () {},
                     splashColor: Colors.grey,
@@ -148,11 +157,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: const Row(
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image(
-                            image: AssetImage("assets/icons/person.png"),
-                            height: 24.0,
-                            width: 28.0,
-                          ),
+                          Icon(Icons.phone),
                           SizedBox(
                             width: 15.0,
                           ),
@@ -232,7 +237,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     await SharedPreferences.getInstance();
                 await preferences.clear();
                 Get.offAllNamed(RouteSetting.login);
-               // Get.toNamed(RouteSetting.login);
+                // Get.toNamed(RouteSetting.login);
               },
               splashColor: Colors.grey,
               child: SizedBox(

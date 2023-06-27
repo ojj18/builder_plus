@@ -3,6 +3,7 @@ import 'package:builder_plus/Screens/Project/create_project.dart';
 import 'package:flutter/material.dart';
 
 import '../../Common/constant.dart';
+import '../Quotation/view_quotation.dart';
 
 class ProjectViewScreen extends StatefulWidget {
   const ProjectViewScreen({super.key});
@@ -14,7 +15,12 @@ class ProjectViewScreen extends StatefulWidget {
 class _ProjectViewScreenState extends State<ProjectViewScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pop(context);
+        return Future.value(true);
+      },
+      child: Scaffold(
         appBar: AppBar(
           elevation: 0.0,
           backgroundColor: primaryColor,
@@ -30,22 +36,6 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
             "Projects",
             style: LightTheme.header,
           ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CreateProjectScreen()),
-                );
-              },
-              icon: const Image(
-                image: AssetImage("assets/icons/folder-add.png"),
-                height: 20,
-                width: 25,
-              ),
-            ),
-          ],
         ),
         body: CustomScrollView(
           shrinkWrap: true,
@@ -82,7 +72,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                   const Column(
+                                  const Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -124,65 +114,44 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                             decoration: BoxDecoration(
                                 border:
                                     Border.all(width: 1, color: Colors.grey)),
-                            child:  const Row(
+                            child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text("Estimation: 332 Lkhs"),
-                                  Text("Duration: 12 Months"),
+                                  Text("Date: 27-06-2023"),
                                 ]),
                           ),
                           const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            "Project Description",
-                            style: LightTheme.subHeader4,
-                          ),
-                          const SizedBox(
-                            height: 10,
+                            height: 20,
                           ),
                           Row(
-                            children: List.generate(
-                                500 ~/ 5,
-                                (index) => Expanded(
-                                      child: Container(
-                                        color: index % 2 == 0
-                                            ? Colors.transparent
-                                            : Colors.grey.shade400,
-                                        height: 2,
-                                      ),
-                                    )),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            "A story is a great way to get your kids engaged. Probably one of the clearest memories of your childhood is that of the stories you read as a chil",
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                           const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Expanded(
-                                  child: CommonButton(
-                                radius: 25,
-                                height: 50,
+                              CommonButton(
+                                onButtonTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const QuotationViewScreen()));
+                                },
+                                radius: 10,
+                                height: 40,
+                                width: MediaQuery.sizeOf(context).width * 0.5,
                                 gapWidth: 0,
                                 buttonText: "View Quotation",
-                              )),
-                              SizedBox(
-                                width: 10,
                               ),
-                              Expanded(
-                                  child: CommonButton(
-                                radius: 25,
-                                height: 50,
-                                gapWidth: 0,
-                                buttonText: "Edit Quotation",
-                              ))
+                              // SizedBox(
+                              //   width: 10,
+                              // ),
+                              // Expanded(
+                              //     child: CommonButton(
+                              //   radius: 25,
+                              //   height: 50,
+                              //   gapWidth: 0,
+                              //   buttonText: "Edit Quotation",
+                              // ))
                             ],
                           )
                         ],
@@ -199,7 +168,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                           const Row(
+                          const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
@@ -250,7 +219,7 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
                                     Container(
                                       margin: const EdgeInsets.all(20),
                                       height: 55,
-                                      child:  const Row(
+                                      child: const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
@@ -299,6 +268,24 @@ class _ProjectViewScreenState extends State<ProjectViewScreen> {
               ),
             ),
           ],
-        ));
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const CreateProjectScreen()),
+            );
+          },
+          backgroundColor: primaryColor,
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+      ),
+    );
   }
 }

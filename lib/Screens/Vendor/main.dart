@@ -3,68 +3,33 @@ import 'package:builder_plus/Component/Form/main.dart';
 import 'package:builder_plus/Component/button/main.dart';
 import 'package:builder_plus/Component/imagepicker.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:get/get.dart';
 
-class CreateProjectScreen extends StatefulWidget {
-  const CreateProjectScreen({super.key});
+import '../../route/main.dart';
+
+class CreateVendorScreen extends StatefulWidget {
+  const CreateVendorScreen({super.key});
 
   @override
-  State<CreateProjectScreen> createState() => _CreateProjectScreenState();
+  State<CreateVendorScreen> createState() => _CreateVendorScreenState();
 }
 
-class _CreateProjectScreenState extends State<CreateProjectScreen> {
+class _CreateVendorScreenState extends State<CreateVendorScreen> {
 //  String? _selectedCountry;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController clientName = TextEditingController();
-  final TextEditingController phoneNumber = TextEditingController();
-  final TextEditingController startDate = TextEditingController();
-  final TextEditingController projectDuration = TextEditingController();
-  final TextEditingController paymentTerms = TextEditingController();
-  DateTime? _datePicker;
-
-  //date function
-  Future _selectDate(BuildContext context) async {
-    _datePicker = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(1950),
-        lastDate: DateTime(2100),
-        builder: (context, child) {
-          return Theme(
-            data: Theme.of(context).copyWith(
-              colorScheme: const ColorScheme.light(
-                primary: primaryColor,
-                onPrimary: Colors.white,
-                onSurface: Colors.black,
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(foregroundColor: primaryColor),
-              ),
-            ),
-            child: child!,
-          );
-        });
-    if (_datePicker != null) {
-      String formattedDate = DateFormat(
-        'yyyy-MM-dd',
-      ).format(_datePicker!);
-
-      setState(() {
-        startDate.text = formattedDate;
-        // _breakingNewsModel.date = formattedDate;
-      });
-    } else {
-      return null;
-    }
-  }
+  final TextEditingController vendorName = TextEditingController();
+  final TextEditingController mobileNumber1 = TextEditingController();
+  final TextEditingController mobileNumber2 = TextEditingController();
+  final TextEditingController address = TextEditingController();
+  final TextEditingController catergory = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return WillPopScope(
-       onWillPop: () {
-        Navigator.pop(context);
+      onWillPop: () {
+        Get.offAllNamed(RouteSetting.bottomNav);
         return Future.value(true);
       },
       child: Scaffold(
@@ -79,7 +44,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
             icon: const Icon(Icons.arrow_back_ios),
           ),
           title: const Text(
-            "Projects",
+            "Add Vendor",
             style: LightTheme.header,
           ),
           // actions: [
@@ -102,7 +67,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        'Project Detail',
+                        'Vendor Detail',
                         style: LightTheme.subHeader8,
                       ),
                       ImagePickerButton()
@@ -112,21 +77,11 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     height: height * 0.02,
                   ),
                   CommonFormField(
-                    textController: clientName,
+                    textController: vendorName,
                     textAlign: TextAlign.start,
                     height: 52.0,
                     width: width,
-                    labelText: 'Client Name',
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  CommonFormField(
-                    textController: paymentTerms,
-                    height: 52.0,
-                    width: width,
-                    labelText: 'Location',
+                    labelText: 'Vendor Name',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                   ),
                   SizedBox(
@@ -134,44 +89,45 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   ),
                   CommonFormField(
                     keyboardType: TextInputType.phone,
-                    textController: phoneNumber,
+                    textController: mobileNumber1,
                     height: 52.0,
                     width: width,
-                    labelText: 'Mobile no',
+                    labelText: 'Mobile No 1',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                   ),
                   SizedBox(
                     height: height * 0.02,
                   ),
                   CommonFormField(
-                    textController: startDate,
-                    readOnly: true,
-                    onTap: () {
-                      _selectDate(context);
-                    },
-                    suffixIcon: Container(
-                      padding: const EdgeInsets.all(12.0),
-                      child: const Image(
-                        image: AssetImage("assets/icons/calender.png"),
-                      ),
-                    ),
+                    keyboardType: TextInputType.phone,
+                    textController: mobileNumber2,
                     height: 52.0,
                     width: width,
-                    labelText: 'Start Date',
+                    labelText: 'Mobile No 2',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                   ),
                   SizedBox(
                     height: height * 0.02,
                   ),
-    
                   CommonFormField(
-                    textController: paymentTerms,
+                    textController: address,
                     height: 52.0,
                     width: width,
-                    labelText: 'Project value',
+                    labelText: 'Address',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                   ),
-    
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+
+                  CommonFormField(
+                    textController: catergory,
+                    height: 52.0,
+                    width: width,
+                    labelText: 'Category',
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                  ),
+
                   // SizedBox(
                   //   height: 52.0,
                   //   width: double.infinity,
@@ -260,7 +216,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     width: 140.0,
                     gapWidth: 0,
                     fontSize: fontSize16,
-                    buttonText: "Create Project",
+                    buttonText: "Create Vendor",
                   )
                 ],
               ),
