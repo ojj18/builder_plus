@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
           iconSize: 30,
-          icon: const Icon(Icons.settings),
+          icon: const Icon(Icons.menu),
         ),
         centerTitle: true,
         title: const Text(

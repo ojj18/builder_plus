@@ -89,7 +89,7 @@ class _BottomNavState extends State<BottomNav> {
                     icon: Image(
                       image: AssetImage("assets/icons/chart.png"),
                       height: 40,
-                      width: 40,
+                      width: 50,
                     )),
               ],
             ),
