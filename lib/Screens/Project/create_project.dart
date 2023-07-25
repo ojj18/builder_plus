@@ -5,6 +5,11 @@ import 'package:builder_plus/Component/imagepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../helper/models/projectModel/main.dart';
+import '../../helper/sqlite/db_helper.dart';
+
+String projectTable = "project_table";
+
 class CreateProjectScreen extends StatefulWidget {
   const CreateProjectScreen({super.key});
 
@@ -19,8 +24,18 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController startDate = TextEditingController();
   final TextEditingController projectDuration = TextEditingController();
-  final TextEditingController paymentTerms = TextEditingController();
+  final TextEditingController projectValue = TextEditingController();
+  final TextEditingController projectLocation = TextEditingController();
   DateTime? _datePicker;
+
+  DatabaseHelper databaseHelper = DatabaseHelper();
+
+  ProjectModel projectModel = ProjectModel();
+  @override
+  void initState() {
+    databaseHelper.initializeDatabase();
+    super.initState();
+  }
 
   //date function
   Future _selectDate(BuildContext context) async {
@@ -63,7 +78,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return WillPopScope(
-       onWillPop: () {
+      onWillPop: () {
         Navigator.pop(context);
         return Future.value(true);
       },
@@ -118,16 +133,32 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     width: width,
                     labelText: 'Client Name',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    onSave: (value) {
+                      clientName.text = value!;
+                    },
+                    onError: (value) {
+                      if (value.isEmpty) {
+                        return "This is required field";
+                      }
+                    },
                   ),
                   SizedBox(
                     height: height * 0.02,
                   ),
                   CommonFormField(
-                    textController: paymentTerms,
+                    textController: projectLocation,
                     height: 52.0,
                     width: width,
                     labelText: 'Location',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    onSave: (value) {
+                      projectLocation.text = value!;
+                    },
+                    onError: (value) {
+                      if (value.isEmpty) {
+                        return "This is required field";
+                      }
+                    },
                   ),
                   SizedBox(
                     height: height * 0.02,
@@ -139,6 +170,14 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     width: width,
                     labelText: 'Mobile no',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    onSave: (value) {
+                      phoneNumber.text = value!;
+                    },
+                    onError: (value) {
+                      if (value.isEmpty) {
+                        return "This is required field";
+                      }
+                    },
                   ),
                   SizedBox(
                     height: height * 0.02,
@@ -159,19 +198,35 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                     width: width,
                     labelText: 'Start Date',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    onSave: (value) {
+                      startDate.text = value!;
+                    },
+                    onError: (value) {
+                      if (value.isEmpty) {
+                        return "This is required field";
+                      }
+                    },
                   ),
                   SizedBox(
                     height: height * 0.02,
                   ),
-    
+
                   CommonFormField(
-                    textController: paymentTerms,
+                    textController: projectValue,
                     height: 52.0,
                     width: width,
                     labelText: 'Project value',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    onSave: (value) {
+                      projectValue.text = value!;
+                    },
+                    onError: (value) {
+                      if (value.isEmpty) {
+                        return "This is required field";
+                      }
+                    },
                   ),
-    
+
                   // SizedBox(
                   //   height: 52.0,
                   //   width: double.infinity,
@@ -254,13 +309,22 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
                   SizedBox(
                     height: height * 0.05,
                   ),
-                  const CommonButton(
+                  CommonButton(
                     radius: 10,
                     height: 40,
                     width: 140.0,
                     gapWidth: 0,
                     fontSize: fontSize16,
                     buttonText: "Create Project",
+                    onButtonTap: () {
+                      if (!_formKey.currentState!.validate()) {
+                        return;
+                      }
+                      _formKey.currentState!.save();
+                      _save();
+
+                      Navigator.pop(context);
+                    },
                   )
                 ],
               ),
@@ -269,5 +333,24 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         ),
       ),
     );
+  }
+
+  void _save() async {
+    projectModel.projectClientName = clientName.text;
+    projectModel.projectLocation = projectLocation.text;
+    projectModel.projectMobileNumber = phoneNumber.text;
+    projectModel.projectValue = projectValue.text;
+    projectModel.projectStartDate = startDate.text;
+    projectModel.projectCreatedDate = DateFormat.yMMMd().format(DateTime.now());
+
+    int? result;
+
+    result = await databaseHelper.insertTodo(projectModel, projectTable);
+
+    if (result != 0) {
+      // Success
+    } else {
+      // Failure
+    }
   }
 }

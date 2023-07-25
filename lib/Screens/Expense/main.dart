@@ -2,13 +2,19 @@ import 'package:builder_plus/Common/constant.dart';
 import 'package:builder_plus/Screens/Expense/see_all_transaction.dart';
 import 'package:builder_plus/Screens/Project/create_project.dart';
 import 'package:builder_plus/Screens/Settings/main.dart';
+import 'package:builder_plus/helper/models/expenseModel/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../../Component/button/main.dart';
+import '../../helper/models/projectModel/main.dart';
+import '../../helper/sqlite/db_helper.dart';
 import '../../route/main.dart';
 import '../Vendor/main.dart';
+
+String expenseTable = "expense_table";
 
 class ExpenseScreen extends StatefulWidget {
   const ExpenseScreen({super.key});
@@ -28,10 +34,19 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   double? amount = 0.0;
   double? total = 0.0;
   double balance = 0.0;
+  TextEditingController projectNameController = TextEditingController();
+  TextEditingController vendorController = TextEditingController();
+  TextEditingController itemNameController = TextEditingController();
+  TextEditingController notesController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController totalController = TextEditingController();
   GlobalKey<FormState> bottomSheetKey = GlobalKey();
   bool isEditContainer = false;
+
+  DatabaseHelper databaseHelper = DatabaseHelper();
+  List<ExpenseModel> expenseList = [];
+  ExpenseModel expenseModel = ExpenseModel();
+  List<ProjectModel> projectList = [];
 
   //date function
   Future _selectDate(BuildContext context) async {
@@ -68,389 +83,447 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
     }
   }
 
+  updateListView() {
+    final Future<Database> dbFuture = databaseHelper.initializeDatabase();
+    dbFuture.then((database) async {
+      List<dynamic> todoListFuture =
+          await databaseHelper.getTodoList(expenseTable, ExpenseModel.fromJson);
+      expenseList = todoListFuture.cast<ExpenseModel>();
+      List<dynamic> projectListFuture =
+          await databaseHelper.getTodoList(projectTable, ProjectModel.fromJson);
+      projectList = projectListFuture.cast<ProjectModel>();
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        Get.offAllNamed(RouteSetting.bottomNav);
-        return Future.value(true);
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: primaryColor,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
+    return FutureBuilder(
+        future: updateListView(),
+        builder: (context, snapShot) {
+          return WillPopScope(
+            onWillPop: () {
+              Get.offAllNamed(RouteSetting.bottomNav);
+              return Future.value(true);
             },
-            iconSize: 30,
-            icon: const Icon(Icons.menu),
-          ),
-          centerTitle: true,
-          title: const Text(
-            "Builder Pluss",
-            style: LightTheme.header,
-          ),
-        ),
-        body: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  if (isEditContainer)
-                    Container(
-                      height: 50,
-                      decoration: const BoxDecoration(color: headerColor),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      isEditContainer = !isEditContainer;
-                                    });
-                                  },
-                                  icon: const Icon(
-                                    Icons.arrow_back,
-                                    color: backgroundColor,
-                                  )),
-                            ),
-                          ),
-                          Expanded(
-                              flex: 2,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  IconButton(
-                                      onPressed: () {
-                                        isMoreOptionEnable = false;
-                                        showBotton();
-                                      },
-                                      icon: const Icon(
-                                        Icons.edit,
-                                        color: backgroundColor,
-                                      )),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.delete,
-                                        color: backgroundColor,
-                                      )),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.copy,
-                                        color: backgroundColor,
-                                      )),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.calendar_today,
-                                        color: backgroundColor,
-                                      )),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.more_vert,
-                                        color: backgroundColor,
-                                      )),
-                                ],
-                              )),
-                        ],
-                      ),
-                    ), //Card
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              color: primaryColor.withOpacity(0.8),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: InkWell(
-                                    onTap: () {
-                                      _selectDate(context);
-                                    },
+            child: Scaffold(
+              appBar: AppBar(
+                elevation: 0.0,
+                backgroundColor: primaryColor,
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingsScreen()),
+                    );
+                  },
+                  iconSize: 30,
+                  icon: const Icon(Icons.menu),
+                ),
+                centerTitle: true,
+                title: const Text(
+                  "Builder Pluss",
+                  style: LightTheme.header,
+                ),
+              ),
+              body: CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        if (isEditContainer)
+                          Container(
+                            height: 50,
+                            decoration: const BoxDecoration(color: headerColor),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            isEditContainer = !isEditContainer;
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.arrow_back,
+                                          color: backgroundColor,
+                                        )),
+                                  ),
+                                ),
+                                Expanded(
+                                    flex: 2,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              isMoreOptionEnable = false;
+                                              showBotton();
+                                            },
+                                            icon: const Icon(
+                                              Icons.edit,
+                                              color: backgroundColor,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.delete,
+                                              color: backgroundColor,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.copy,
+                                              color: backgroundColor,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.calendar_today,
+                                              color: backgroundColor,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.more_vert,
+                                              color: backgroundColor,
+                                            )),
+                                      ],
+                                    )),
+                              ],
+                            ),
+                          ), //Card
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                    color: primaryColor.withOpacity(0.8),
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: InkWell(
+                                          onTap: () {
+                                            _selectDate(context);
+                                          },
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                startDate != ""
+                                                    ? startDate
+                                                    : DateFormat(
+                                                        'dd-MM-yyyy',
+                                                      ).format(DateTime.now()),
+                                                style: LightTheme.subHeader1,
+                                              ),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(12.0),
+                                                child: const Image(
+                                                  height: 15,
+                                                  width: 15,
+                                                  color: backgroundColor,
+                                                  image: AssetImage(
+                                                      "assets/icons/calender.png"),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const Text(
+                                      "Total total",
+                                      style: LightTheme.subHeader,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          startDate != ""
-                                              ? startDate
-                                              : DateFormat(
-                                                  'dd-MM-yyyy',
-                                                ).format(DateTime.now()),
-                                          style: LightTheme.subHeader1,
+                                          "38776.0",
+                                          style: LightTheme.subHeader,
                                         ),
-                                        Container(
-                                          padding: const EdgeInsets.all(12.0),
-                                          child: const Image(
-                                            height: 15,
-                                            width: 15,
-                                            color: backgroundColor,
-                                            image: AssetImage(
-                                                "assets/icons/calender.png"),
-                                          ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(
+                                          "INR",
+                                          style: LightTheme.subHeader1,
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ),
-                              ),
-                              const Text(
-                                "Total total",
-                                style: LightTheme.subHeader,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "38776.0",
-                                    style: LightTheme.subHeader,
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    "INR",
-                                    style: LightTheme.subHeader1,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.1,
-                                width: MediaQuery.of(context).size.width * 0.75,
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: primaryColor,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.arrow_downward,
-                                                color: Colors.green.shade400,
-                                              ),
-                                              const Text(
-                                                "Income",
-                                                style: LightTheme.subHeader1,
-                                              )
-                                            ],
-                                          ),
-                                          const Padding(
-                                            padding:
-                                                EdgeInsets.only(left: 25.0),
-                                            child: Text(
-                                              "4000.0",
-                                              style: LightTheme.subHeader2,
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                    const SizedBox(
+                                      height: 10,
                                     ),
-                                    const VerticalDivider(
-                                      color: Colors.white,
-                                      thickness: 2.5,
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.arrow_upward,
-                                                color: Colors.red.shade400,
-                                              ),
-                                              const Text(
-                                                "Expense",
-                                                style: LightTheme.subHeader1,
-                                              )
-                                            ],
-                                          ),
-                                          const Padding(
-                                            padding:
-                                                EdgeInsets.only(left: 25.0),
-                                            child: Text(
-                                              "1224.0",
-                                              style: LightTheme.subHeader2,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        //List of transactions
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              "Recent transactions",
-                              style: LightTheme.header3,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SeeAllTransactionListScreen()),
-                                );
-                              },
-                              child: const Text(
-                                "See all",
-                                style: LightTheme.header2,
-                              ),
-                            )
-                          ],
-                        ),
-
-                        ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: 5,
-                            itemBuilder: ((context, index) {
-                              return InkWell(
-                                onLongPress: () {
-                                  int currentIndex = index;
-                                  if (currentIndex == index) {
-                                    isEditContainer = !isEditContainer;
-                                  }
-                                  setState(() {});
-                                },
-                                child: Column(
-                                  children: [
                                     Container(
-                                      margin: const EdgeInsets.all(20),
-                                      height: 55,
-                                      child: const Row(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.1,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.75,
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: primaryColor,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.start,
                                         children: [
-                                          IntrinsicWidth(
-                                            child: Row(
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                CircleAvatar(
-                                                  backgroundColor: Colors.white,
-                                                  backgroundImage: NetworkImage(
-                                                    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                Row(
                                                   children: [
-                                                    Text("Cement"),
-                                                    Text("17 Jun 2023"),
-                                                    Text("5 quantity * 460 Rs"),
+                                                    Icon(
+                                                      Icons.arrow_downward,
+                                                      color:
+                                                          Colors.green.shade400,
+                                                    ),
+                                                    const Text(
+                                                      "Income",
+                                                      style:
+                                                          LightTheme.subHeader1,
+                                                    )
                                                   ],
+                                                ),
+                                                const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 25.0),
+                                                  child: Text(
+                                                    "4000.0",
+                                                    style:
+                                                        LightTheme.subHeader2,
+                                                  ),
                                                 )
                                               ],
                                             ),
                                           ),
-                                          Align(
-                                              alignment: Alignment.centerRight,
-                                              child: IntrinsicWidth(
-                                                  child: Text("INR -1240")))
+                                          const VerticalDivider(
+                                            color: Colors.white,
+                                            thickness: 2.5,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.arrow_upward,
+                                                      color:
+                                                          Colors.red.shade400,
+                                                    ),
+                                                    const Text(
+                                                      "Expense",
+                                                      style:
+                                                          LightTheme.subHeader1,
+                                                    )
+                                                  ],
+                                                ),
+                                                const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 25.0),
+                                                  child: Text(
+                                                    "1224.0",
+                                                    style:
+                                                        LightTheme.subHeader2,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                    ),
-                                    Row(
-                                      children: List.generate(
-                                          500 ~/ 10,
-                                          (index) => Expanded(
-                                                child: Container(
-                                                  color: index % 2 == 0
-                                                      ? Colors.transparent
-                                                      : Colors.grey.shade400,
-                                                  height: 2,
-                                                ),
-                                              )),
-                                    ),
+                                    )
                                   ],
                                 ),
-                              );
-                            })),
+                              ),
+                              //List of transactions
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    "Recent transactions",
+                                    style: LightTheme.header3,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SeeAllTransactionListScreen()),
+                                      );
+                                    },
+                                    child: const Text(
+                                      "See all",
+                                      style: LightTheme.header2,
+                                    ),
+                                  )
+                                ],
+                              ),
+
+                              ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: expenseList.length,
+                                  itemBuilder: ((context, index) {
+                                    return InkWell(
+                                      onLongPress: () {
+                                        int currentIndex = index;
+                                        if (currentIndex == index) {
+                                          isEditContainer = !isEditContainer;
+                                        }
+                                        setState(() {});
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            margin: const EdgeInsets.all(20),
+                                            height: 55,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                IntrinsicWidth(
+                                                  child: Row(
+                                                    children: [
+                                                      const CircleAvatar(
+                                                        backgroundColor:
+                                                            Colors.white,
+                                                        backgroundImage:
+                                                            NetworkImage(
+                                                          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                              expenseList[index]
+                                                                  .item!),
+                                                          Text(
+                                                              expenseList[index]
+                                                                  .date!),
+                                                          // const Text(
+                                                          //     "5 quantity * 460 Rs"),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: IntrinsicWidth(
+                                                        child: Text(
+                                                      "INR - ${expenseList[index].amount}",
+                                                      style: TextStyle(
+                                                        color: expenseList[
+                                                                        index]
+                                                                    .expenseType ==
+                                                                0
+                                                            ? Colors
+                                                                .green.shade400
+                                                            : Colors
+                                                                .red.shade400,
+                                                      ),
+                                                    )))
+                                              ],
+                                            ),
+                                          ),
+                                          Row(
+                                            children: List.generate(
+                                                500 ~/ 10,
+                                                (index) => Expanded(
+                                                      child: Container(
+                                                        color: index % 2 == 0
+                                                            ? Colors.transparent
+                                                            : Colors
+                                                                .grey.shade400,
+                                                        height: 2,
+                                                      ),
+                                                    )),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  })),
+                            ],
+                          ),
+                        )
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.endFloat,
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  isMoreOptionEnable = false;
+                  showBotton();
+                },
+                backgroundColor: primaryColor,
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
             ),
-          ],
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            isMoreOptionEnable = false;
-            showBotton();
-          },
-          backgroundColor: primaryColor,
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-            size: 30,
-          ),
-        ),
-      ),
-    );
+          );
+        });
   }
 
   showBotton() {
@@ -487,6 +560,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                     setState(() {
                                       isDebitEnable = false;
                                       isCreditEnable = true;
+                                      expenseModel.expenseType = 0;
                                     });
                                   },
                                   child: Material(
@@ -522,6 +596,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                     setState(() {
                                       isCreditEnable = false;
                                       isDebitEnable = true;
+                                      expenseModel.expenseType = 1;
                                     });
                                   },
                                   child: Material(
@@ -568,8 +643,26 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                                       .size
                                                       .height *
                                                   0.25,
-                                              child: const Text(
-                                                  "RVKS Construction"),
+                                              child: Column(
+                                                children: List.generate(
+                                                    projectList.length,
+                                                    (index) => InkWell(
+                                                          onTap: () {
+                                                            projectNameController
+                                                                .text = projectList[
+                                                                    index]
+                                                                .projectClientName!;
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Text(
+                                                            projectList[index]
+                                                                .projectClientName!,
+                                                            style: LightTheme
+                                                                .subHeader7,
+                                                          ),
+                                                        )),
+                                              ),
                                             ),
                                             actions: [
                                               InkWell(
@@ -616,6 +709,10 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                       borderSide: BorderSide(color: Colors.red),
                                     ),
                                   ),
+                                  controller: projectNameController,
+                                  onSaved: (value) {
+                                    projectNameController.text = value!;
+                                  },
                                 ),
                               ),
                               const SizedBox(
@@ -623,65 +720,88 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                               ),
                               Expanded(
                                 child: TextFormField(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (ctx) {
-                                          return AlertDialog(
-                                            content: SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.25,
-                                              child: const Text(
-                                                  "RVKS Construction"),
-                                            ),
-                                            actions: [
-                                              InkWell(
-                                                onTapDown: (details) {
-                                                  Navigator.pop(context);
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const CreateVendorScreen()),
-                                                  );
-                                                },
-                                                child: const Align(
-                                                  alignment:
-                                                      Alignment.bottomRight,
-                                                  child: CircleAvatar(
-                                                    backgroundColor:
-                                                        primaryColor,
-                                                    child: Icon(
-                                                      Icons.add,
-                                                      color: Colors.white,
-                                                      size: 30,
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (ctx) {
+                                            return AlertDialog(
+                                              content: SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.25,
+                                                child: Column(
+                                                  children: List.generate(
+                                                      projectList.length,
+                                                      (index) => InkWell(
+                                                            onTap: () {
+                                                              vendorController
+                                                                      .text =
+                                                                  projectList[
+                                                                          index]
+                                                                      .projectClientName!;
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: Text(
+                                                              projectList[index]
+                                                                  .projectClientName!,
+                                                              style: LightTheme
+                                                                  .subHeader7,
+                                                            ),
+                                                          )),
+                                                ),
+                                              ),
+                                              actions: [
+                                                InkWell(
+                                                  onTapDown: (details) {
+                                                    Navigator.pop(context);
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const CreateVendorScreen()),
+                                                    );
+                                                  },
+                                                  child: const Align(
+                                                    alignment:
+                                                        Alignment.bottomRight,
+                                                    child: CircleAvatar(
+                                                      backgroundColor:
+                                                          primaryColor,
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                        size: 30,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          );
-                                        });
-                                  },
-                                  readOnly: true,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Vendor',
-                                    hintStyle: LightTheme.subHeader7,
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.grey),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    readOnly: true,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Vendor',
+                                      hintStyle: LightTheme.subHeader7,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff8F70FF)),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
                                     ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xff8F70FF)),
-                                    ),
-                                    errorBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.red),
-                                    ),
-                                  ),
-                                ),
+                                    controller: vendorController,
+                                    onSaved: (value) {
+                                      vendorController.text = value!;
+                                    }),
                               ),
                             ],
                           ),
@@ -693,55 +813,61 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                             children: [
                               Expanded(
                                 child: TextFormField(
-                                  decoration: const InputDecoration(
-                                    hintText: 'Item',
-                                    hintStyle: LightTheme.subHeader7,
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.grey),
+                                    decoration: const InputDecoration(
+                                      hintText: 'Item',
+                                      hintStyle: LightTheme.subHeader7,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff8F70FF)),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
                                     ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xff8F70FF)),
-                                    ),
-                                    errorBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.red),
-                                    ),
-                                  ),
-                                ),
+                                    onSaved: (value) {
+                                      itemNameController.text = value!;
+                                    }),
                               ),
                               const SizedBox(
                                 width: 10,
                               ),
                               Expanded(
                                 child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Amount',
-                                    hintStyle: LightTheme.subHeader7,
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.grey),
+                                    keyboardType: TextInputType.number,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Amount',
+                                      hintStyle: LightTheme.subHeader7,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xff8F70FF)),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
+                                      ),
                                     ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xff8F70FF)),
-                                    ),
-                                    errorBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.red),
-                                    ),
-                                  ),
-                                  controller: amountController,
-                                  onChanged: (value) {
-                                    if (value.isNotEmpty) {
-                                      amount = double.parse(value);
-                                    }
-                                    if (total! > amount!) {
-                                      balance = total! - amount!;
-                                    }
-                                    setState(() {});
-                                  },
-                                ),
+                                    controller: amountController,
+                                    onChanged: (value) {
+                                      if (value.isNotEmpty) {
+                                        amount = double.parse(value);
+                                      }
+                                      if (total! > amount!) {
+                                        balance = total! - amount!;
+                                      }
+                                      setState(() {});
+                                    },
+                                    onSaved: (value) {
+                                      amountController.text = value!;
+                                    }),
                               )
                             ],
                           ),
@@ -773,44 +899,46 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                   children: [
                                     Expanded(
                                       child: TextFormField(
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          hintText: 'Bill amount',
-                                          hintStyle: LightTheme.subHeader7,
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.grey),
+                                          keyboardType: TextInputType.number,
+                                          decoration: const InputDecoration(
+                                            hintText: 'Bill amount',
+                                            hintStyle: LightTheme.subHeader7,
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Color(0xff8F70FF)),
+                                            ),
+                                            errorBorder: UnderlineInputBorder(
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
+                                            ),
                                           ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Color(0xff8F70FF)),
-                                          ),
-                                          errorBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.red),
-                                          ),
-                                        ),
-                                        validator: (value) {
-                                          if (value!.isNotEmpty) {
-                                            double totalAmount =
-                                                double.parse(value);
-                                            if (totalAmount < amount!) {
-                                              return "Amount lesser than total amount";
+                                          validator: (value) {
+                                            if (value!.isNotEmpty) {
+                                              double totalAmount =
+                                                  double.parse(value);
+                                              if (totalAmount < amount!) {
+                                                return "Amount lesser than total amount";
+                                              }
                                             }
-                                          }
-                                          return null;
-                                        },
-                                        controller: totalController,
-                                        onChanged: (value) {
-                                          if (value.isNotEmpty) {
-                                            total = double.parse(value);
-                                          }
-                                          if (total! > amount!) {
-                                            balance = total! - amount!;
-                                          }
-                                          setState(() {});
-                                        },
-                                      ),
+                                            return null;
+                                          },
+                                          controller: totalController,
+                                          onChanged: (value) {
+                                            if (value.isNotEmpty) {
+                                              total = double.parse(value);
+                                            }
+                                            if (total! > amount!) {
+                                              balance = total! - amount!;
+                                            }
+                                            setState(() {});
+                                          },
+                                          onSaved: (value) {
+                                            totalController.text = value!;
+                                          }),
                                     ),
                                     const SizedBox(
                                       width: 10,
@@ -832,7 +960,6 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                     ),
                                   ],
                                 ),
-
                               ],
                             ),
                           Row(
@@ -870,7 +997,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                   const Text("Bank transfer")
                                 ],
                               ),
-                                                            Row(
+                              Row(
                                 children: [
                                   Radio(
                                     activeColor: primaryColor,
@@ -885,26 +1012,27 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                   const Text("Cheque")
                                 ],
                               ),
-                      
                             ],
                           ),
-                        
-                                                          const SizedBox(
-                                  height: 20.0,
-                                ),
-                                TextFormField(
-                                  maxLines: 3,
-                                  keyboardType: TextInputType.multiline,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: formFieldColor.withOpacity(0.2),
-                                    hintText: 'Notes',
-                                    hintStyle: LightTheme.subHeader7,
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                  ),
-                                ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            maxLines: 3,
+                            keyboardType: TextInputType.multiline,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: formFieldColor.withOpacity(0.2),
+                              hintText: 'Notes',
+                              hintStyle: LightTheme.subHeader7,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                            ),
+                            onSaved: (value) {
+                              notesController.text = value!;
+                            },
+                          ),
                           const SizedBox(
                             height: 20.0,
                           ),
@@ -919,6 +1047,8 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                     return;
                                   }
                                   bottomSheetKey.currentState!.save();
+                                  _save();
+                                  updateListView();
                                   Navigator.pop(context);
                                 },
                                 radius: 20,
@@ -956,5 +1086,27 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
             }),
           );
         });
+  }
+
+  void _save() async {
+    expenseModel.projectName = projectNameController.text;
+    expenseModel.vendor = vendorController.text;
+    expenseModel.item = itemNameController.text;
+    expenseModel.amount = amount;
+    expenseModel.totalAmount = total;
+    expenseModel.billAmount = balance;
+    expenseModel.notes = notesController.text;
+    expenseModel.date = DateFormat.yMMMd().format(DateTime.now());
+
+    expenseModel.paymentType = 1;
+    int? result;
+
+    result = await databaseHelper.insertTodo(expenseModel, expenseTable);
+
+    if (result != 0) {
+      // Success
+    } else {
+      // Failure
+    }
   }
 }
