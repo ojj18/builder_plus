@@ -10,6 +10,7 @@ class DatabaseHelper {
 
   String expenseTable = "expense_table";
   String projectTable = "project_table";
+  String vendorTable = "vendor_table";
 
   //**** Expense table column name ****//
   String? id = "id";
@@ -25,7 +26,6 @@ class DatabaseHelper {
   String? date = "date";
 
   //**** Project table column name ****//
-
   String? projectClientName = "projectClientName";
   String? projectLocation = "projectLocation";
   String? projectMobileNumber = "projectMobileNumber";
@@ -33,6 +33,13 @@ class DatabaseHelper {
   String? projectValue = "projectValue";
   String? projectCreatedDate = "projectCreatedDate";
 
+  //**** Vendor table column name ****//
+  String? vendorName = "vendorName";
+  String? mobileNumber1 = "mobileNumber1";
+  String? mobileNumber2 = "mobileNumber2";
+  String? vendorAddress = "vendorAddress";
+  String? category = "category";
+  String? vendorCreatedDate = "vendorCreatedDate";
   DatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper
 
   factory DatabaseHelper() {
@@ -63,6 +70,9 @@ class DatabaseHelper {
     );
     db.execute(
       'CREATE TABLE $projectTable($id INTEGER PRIMARY KEY AUTOINCREMENT,$projectClientName TEXT not null,$projectLocation TEXT not null, $projectMobileNumber TEXT not null,  $projectStartDate TEXT not null, $projectValue REAL not null, $projectCreatedDate TEXT not null)',
+    );
+    db.execute(
+      'CREATE TABLE $vendorTable($id INTEGER PRIMARY KEY AUTOINCREMENT,$vendorName TEXT not null,$mobileNumber1 TEXT not null, $mobileNumber2 TEXT not null,$vendorAddress TEXT not null, $category TEXT not null,$vendorCreatedDate TEXT not null)',
     );
   }
 

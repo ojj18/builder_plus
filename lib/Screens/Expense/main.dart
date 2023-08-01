@@ -10,6 +10,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../Component/button/main.dart';
 import '../../helper/models/projectModel/main.dart';
+import '../../helper/models/vendorModel/main.dart';
 import '../../helper/sqlite/db_helper.dart';
 import '../../route/main.dart';
 import '../Vendor/main.dart';
@@ -47,6 +48,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   List<ExpenseModel> expenseList = [];
   ExpenseModel expenseModel = ExpenseModel();
   List<ProjectModel> projectList = [];
+  List<VendorModel> vendorList = [];
 
   //date function
   Future _selectDate(BuildContext context) async {
@@ -92,6 +94,9 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
       List<dynamic> projectListFuture =
           await databaseHelper.getTodoList(projectTable, ProjectModel.fromJson);
       projectList = projectListFuture.cast<ProjectModel>();
+       List<dynamic> vendorListFuture =
+          await databaseHelper.getTodoList(vendorTable, VendorModel.fromJson);
+      vendorList = vendorListFuture.cast<VendorModel>();
       setState(() {});
     });
   }
@@ -643,26 +648,34 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                                       .size
                                                       .height *
                                                   0.25,
-                                              child: Column(
-                                                children: List.generate(
-                                                    projectList.length,
-                                                    (index) => InkWell(
-                                                          onTap: () {
-                                                            projectNameController
-                                                                .text = projectList[
-                                                                    index]
-                                                                .projectClientName!;
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: Text(
-                                                            projectList[index]
-                                                                .projectClientName!,
-                                                            style: LightTheme
-                                                                .subHeader7,
-                                                          ),
-                                                        )),
-                                              ),
+                                              child: projectList.isNotEmpty
+                                                  ? Column(
+                                                      children: List.generate(
+                                                          projectList.length,
+                                                          (index) => InkWell(
+                                                                onTap: () {
+                                                                  projectNameController
+                                                                      .text = projectList[
+                                                                          index]
+                                                                      .projectClientName!;
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Text(
+                                                                  projectList[
+                                                                          index]
+                                                                      .projectClientName!,
+                                                                  style: LightTheme
+                                                                      .subHeader7,
+                                                                ),
+                                                              )),
+                                                    )
+                                                  : const Center(
+                                                      child: Text(
+                                                      "No project found",
+                                                      style:
+                                                          LightTheme.subHeader7,
+                                                    )),
                                             ),
                                             actions: [
                                               InkWell(
@@ -730,27 +743,34 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                                                         .size
                                                         .height *
                                                     0.25,
-                                                child: Column(
-                                                  children: List.generate(
-                                                      projectList.length,
-                                                      (index) => InkWell(
-                                                            onTap: () {
-                                                              vendorController
-                                                                      .text =
-                                                                  projectList[
-                                                                          index]
-                                                                      .projectClientName!;
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: Text(
-                                                              projectList[index]
-                                                                  .projectClientName!,
-                                                              style: LightTheme
-                                                                  .subHeader7,
-                                                            ),
-                                                          )),
-                                                ),
+                                                child: vendorList.isNotEmpty
+                                                    ? Column(
+                                                        children: List.generate(
+                                                            vendorList.length,
+                                                            (index) => InkWell(
+                                                                  onTap: () {
+                                                                    vendorController
+                                                                        .text = vendorList[
+                                                                            index]
+                                                                        .vendorName!;
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child: Text(
+                                                                    vendorList[
+                                                                            index]
+                                                                        .vendorName!,
+                                                                    style: LightTheme
+                                                                        .subHeader7,
+                                                                  ),
+                                                                )),
+                                                      )
+                                                    : const Center(
+                                                        child: Text(
+                                                        "No vendor found",
+                                                        style: LightTheme
+                                                            .subHeader7,
+                                                      )),
                                               ),
                                               actions: [
                                                 InkWell(
