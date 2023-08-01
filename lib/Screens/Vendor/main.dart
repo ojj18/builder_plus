@@ -4,8 +4,13 @@ import 'package:builder_plus/Component/button/main.dart';
 import 'package:builder_plus/Component/imagepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../../helper/models/vendorModel/main.dart';
+import '../../helper/sqlite/db_helper.dart';
 import '../../route/main.dart';
+
+String vendorTable = "vendor_table";
 
 class CreateVendorScreen extends StatefulWidget {
   const CreateVendorScreen({super.key});
@@ -22,6 +27,9 @@ class _CreateVendorScreenState extends State<CreateVendorScreen> {
   final TextEditingController mobileNumber2 = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController catergory = TextEditingController();
+  DatabaseHelper databaseHelper = DatabaseHelper();
+
+  VendorModel vendorModel = VendorModel();
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +91,14 @@ class _CreateVendorScreenState extends State<CreateVendorScreen> {
                     width: width,
                     labelText: 'Vendor Name',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    onSave: (value) {
+                      vendorName.text = value!;
+                    },
+                    onError: (value) {
+                      if (value.isEmpty) {
+                        return "This is required field";
+                      }
+                    },
                   ),
                   SizedBox(
                     height: height * 0.02,
@@ -94,6 +110,14 @@ class _CreateVendorScreenState extends State<CreateVendorScreen> {
                     width: width,
                     labelText: 'Mobile No 1',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    onSave: (value) {
+                      mobileNumber1.text = value!;
+                    },
+                    onError: (value) {
+                      if (value.isEmpty) {
+                        return "This is required field";
+                      }
+                    },
                   ),
                   SizedBox(
                     height: height * 0.02,
@@ -105,6 +129,14 @@ class _CreateVendorScreenState extends State<CreateVendorScreen> {
                     width: width,
                     labelText: 'Mobile No 2',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    onSave: (value) {
+                      mobileNumber2.text = value!;
+                    },
+                    onError: (value) {
+                      if (value.isEmpty) {
+                        return "This is required field";
+                      }
+                    },
                   ),
                   SizedBox(
                     height: height * 0.02,
@@ -115,6 +147,14 @@ class _CreateVendorScreenState extends State<CreateVendorScreen> {
                     width: width,
                     labelText: 'Address',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    onSave: (value) {
+                      address.text = value!;
+                    },
+                    onError: (value) {
+                      if (value.isEmpty) {
+                        return "This is required field";
+                      }
+                    },
                   ),
                   SizedBox(
                     height: height * 0.02,
@@ -126,6 +166,14 @@ class _CreateVendorScreenState extends State<CreateVendorScreen> {
                     width: width,
                     labelText: 'Category',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    onSave: (value) {
+                      catergory.text = value!;
+                    },
+                    onError: (value) {
+                      if (value.isEmpty) {
+                        return "This is required field";
+                      }
+                    },
                   ),
 
                   // SizedBox(
@@ -210,13 +258,22 @@ class _CreateVendorScreenState extends State<CreateVendorScreen> {
                   SizedBox(
                     height: height * 0.05,
                   ),
-                  const CommonButton(
+                  CommonButton(
                     radius: 10,
                     height: 40,
                     width: 140.0,
                     gapWidth: 0,
                     fontSize: fontSize16,
                     buttonText: "Create Vendor",
+                    onButtonTap: () {
+                      if (!_formKey.currentState!.validate()) {
+                        return;
+                      }
+                      _formKey.currentState!.save();
+                      _save();
+
+                      Navigator.pop(context);
+                    },
                   )
                 ],
               ),
@@ -225,5 +282,24 @@ class _CreateVendorScreenState extends State<CreateVendorScreen> {
         ),
       ),
     );
+  }
+
+  void _save() async {
+    vendorModel.vendorName = vendorName.text;
+    vendorModel.mobileNumber1 = mobileNumber1.text;
+    vendorModel.mobileNumber2 = mobileNumber2.text;
+    vendorModel.vendorAddress = address.text;
+    vendorModel.category = catergory.text;
+    vendorModel.vendorCreatedDate = DateFormat.yMMMd().format(DateTime.now());
+
+    int? result;
+
+    result = await databaseHelper.insertTodo(vendorModel, vendorTable);
+
+    if (result != 0) {
+      // Success
+    } else {
+      // Failure
+    }
   }
 }
